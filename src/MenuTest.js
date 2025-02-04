@@ -96,7 +96,7 @@ const Skeleton = styled('div')(({ theme, height }) => ({
 export default function DashboardLayoutBasic(props) {
   const { window } = props;
 
-  const router = useDemoRouter('/dashboard');
+  const router = useDemoRouter('/portfolio');
 
   // Remove this const when copying and pasting into your project.
   const demoWindow = window ? window() : undefined;
@@ -107,6 +107,11 @@ export default function DashboardLayoutBasic(props) {
       router={router}
       theme={demoTheme}
       window={demoWindow}
+      branding={{
+        logo: <img src="/Logo.png" alt="logo" />,
+        title: 'Stock Tracker',
+        homeUrl: '/toolpad/core/introduction',
+      }}
     >
       <DashboardLayout>
         <PageContainer>
