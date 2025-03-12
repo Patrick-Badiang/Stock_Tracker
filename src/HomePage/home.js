@@ -1,5 +1,7 @@
-import { Box, styled } from '@mui/material';
+import { Box, Button, FormControl, MenuItem, Select, styled } from '@mui/material';
 import Grid from '@mui/material/Grid2';
+import { useState } from 'react';
+import ChangePortfolioButton from '../ChangePortfolioButton';
 
 const Skeleton = styled('div')(({ theme, height }) => ({
     backgroundColor: theme.palette.action.hover,
@@ -11,14 +13,16 @@ const Skeleton = styled('div')(({ theme, height }) => ({
     content: '" "',
   }));
 
-export default function home(){
+export default function Home(){
+
+  
+
     return (
         <Grid container spacing={1}>
             <Grid size={6}>
                 <Grid container direction={'column'} spacing={0}>
-                    <Grid size={12}>
-                      <Skeleton height={40} />
-                    </Grid>
+                    {/* Button Group*/}
+                    <ChangePortfolioButton/>
                     <Grid size={12}>
                       <Box height={10} />
                     </Grid>
