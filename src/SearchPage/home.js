@@ -1,5 +1,5 @@
 import { Search } from '@mui/icons-material';
-import { Box, Divider, InputAdornment, styled, TextField, Typography } from '@mui/material';
+import { Box, InputAdornment, styled, TextField, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 
 const Skeleton = styled('div')(({ theme, height }) => ({
@@ -19,20 +19,27 @@ export default function home(){
             <Grid size={5} />
             <Grid size={12}>
                 {/* <Skeleton height={60} /> */}
-                <TextField height = {60} variant="outlined" fullWidth placeholder="Search for a stock" InputProps={{
-        startAdornment: (
-          <InputAdornment position="start">
-            <Search />
-          </InputAdornment>
-        ),
-      }}
-    />
+                <TextField height = {60} variant="outlined" fullWidth placeholder = "Search for a stock" 
+                slotProps={{
+                    input:{
+                        startAdornment: (
+                        <InputAdornment position="start">
+                            <Search />
+                        </InputAdornment>
+                        ),
+                    }}}
+                    />
             </Grid>
             <Grid size={12}>
                 <Box height={40} />
             </Grid>
             <Grid size={4} offset={{ md: 3.7 }}>
-                <Skeleton height={100} />
+                {/* <Skeleton height={100} /> */}
+                <Box height={100} sx = {{textAlign: 'center'}}>
+                    <Typography variant={'h4'}>IBM</Typography>
+                    <Typography variant={'h4'}>$236.00</Typography>
+                    <Typography variant={'body1'}>0.00%</Typography>
+                </Box>
             </Grid>
             
 
