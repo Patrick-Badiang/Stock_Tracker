@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import {Box, Toolbar, List, CssBaseline, Typography, Divider, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText} from '@mui/material';
+import {Box, Toolbar, List, CssBaseline, Typography, Divider, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText, Avatar} from '@mui/material';
 
 import MuiDrawer from '@mui/material/Drawer';
 
@@ -19,6 +19,7 @@ import PortfolioHome from './PortfolioPage/home';
 import EarningsHome from './EarningsPage/home';
 import NewsHome from './NewsPage/home';
 
+import MyLogo from './Logo.png';
 
 const drawerWidth = 240;
 
@@ -50,6 +51,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 1),
   ...theme.mixins.toolbar,
 }));
+
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })
 (({ theme, open }) => ({
@@ -118,7 +120,17 @@ export default function StockTracker() {
             ))}
           </List>
           </Box>
-          {/* <Divider /> */}
+          <Box sx = {{height:'10%'}}/>
+          <Divider />
+          
+          <List>
+            <ListItem>
+            <ListItemIcon>
+              <Avatar alt="Remy Sharp" src={MyLogo}/>
+            </ListItemIcon>
+            <ListItemText primary="Kustu" />
+            </ListItem>
+          </List>
         </Drawer>
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <DrawerHeader />

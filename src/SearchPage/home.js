@@ -1,4 +1,5 @@
-import { Box, Divider, styled, Typography } from '@mui/material';
+import { Search } from '@mui/icons-material';
+import { Box, Divider, InputAdornment, styled, TextField, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 
 const Skeleton = styled('div')(({ theme, height }) => ({
@@ -12,11 +13,20 @@ const Skeleton = styled('div')(({ theme, height }) => ({
   }));
 
 export default function home(){
+
     return (
     <Grid container spacing={1} alignContent={'center'}>
             <Grid size={5} />
             <Grid size={12}>
-                <Skeleton height={60} />
+                {/* <Skeleton height={60} /> */}
+                <TextField height = {60} variant="outlined" fullWidth placeholder="Search for a stock" InputProps={{
+        startAdornment: (
+          <InputAdornment position="start">
+            <Search />
+          </InputAdornment>
+        ),
+      }}
+    />
             </Grid>
             <Grid size={12}>
                 <Box height={40} />
