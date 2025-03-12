@@ -19,5 +19,5 @@ export default function home(){
                       <Skeleton height={800} />
                   </Grid>
               </Grid>
-);
+  );
 }
