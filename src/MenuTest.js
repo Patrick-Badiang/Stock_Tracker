@@ -1,157 +1,137 @@
 import * as React from 'react';
-import { extendTheme, styled } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import {Box, Toolbar, List, CssBaseline, Typography, Divider, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText} from '@mui/material';
 
-import FolderIcon from '@mui/icons-material/Folder';
-import SearchIcon from '@mui/icons-material/Search';
-import SummarizeIcon from '@mui/icons-material/Summarize';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import NewspaperIcon from '@mui/icons-material/Newspaper';
-import AssessmentIcon from '@mui/icons-material/Assessment';
+import MuiDrawer from '@mui/material/Drawer';
 
-import { AppProvider } from '@toolpad/core/AppProvider';
-import { DashboardLayout } from '@toolpad/core/DashboardLayout';
-import { PageContainer } from '@toolpad/core/PageContainer';
-import Grid from '@mui/material/Grid2';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
-const NAVIGATION = [
-  {
-    kind: 'header',
-    title: 'Find New Stock',
-  },
-  {
-    segment: 'dashboard',
-    title: 'Search',
-    icon: <SearchIcon />,
-  },
-  
-  {
-    kind: 'divider',
-  },
-  {
-    kind: 'header',
-    title: 'Portfolio Analytics',
-  },
-  {
-    segment: 'portfolio',
-    title: 'Portfolio',
-    icon: <FolderIcon/>,
-  },
-  {
-    segment: 'news',
-    title: 'Latest News',
-    icon: <NewspaperIcon/>,
-  },
-  {
-    segment: 'reports',
-    title: 'Earnings Report',
-    icon: <SummarizeIcon />,
-  },
-  {
-    segment: 'dividends',
-    title: 'Dividends',
-    icon: <AttachMoneyIcon />,
-  },
-  {
-    segment: 'positions',
-    title: 'Positions',
-    icon: <AssessmentIcon />,
-  }
-];
+import HomeIcon from '@mui/icons-material/Home';
 
-const demoTheme = extendTheme({
-  colorSchemes: { light: true, dark: true },
-  colorSchemeSelector: 'class',
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 600,
-      md: 600,
-      lg: 1200,
-      xl: 1536,
-    },
+import { Search, AttachMoney, AlignVerticalBottom, Feed, Phone, Person } from '@mui/icons-material';
+
+import HomeHome from './HomePage/home';
+import SearchHome from './SearchPage/home';
+import DividendsHome from './DividendsPage/home';
+import PortfolioHome from './PortfolioPage/home';
+import EarningsHome from './EarningsPage/home';
+import NewsHome from './NewsPage/home';
+
+
+const drawerWidth = 240;
+
+const openedMixin = (theme) => ({
+  width: drawerWidth,
+  transition: theme.transitions.create('width', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.enteringScreen,
+  }),
+  overflowX: 'hidden',
+});
+
+const closedMixin = (theme) => ({
+  transition: theme.transitions.create('width', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  overflowX: 'hidden',
+  width: `calc(${theme.spacing(7)} + 1px)`,
+  [theme.breakpoints.up('sm')]: {
+    width: `calc(${theme.spacing(8)} + 1px)`,
   },
 });
 
-function useDemoRouter(initialPath) {
-  const [pathname, setPathname] = React.useState(initialPath);
-
-  const router = React.useMemo(() => {
-    return {
-      pathname,
-      searchParams: new URLSearchParams(),
-      navigate: (path) => setPathname(String(path)),
-    };
-  }, [pathname]);
-
-  return router;
-}
-
-const Skeleton = styled('div')(({ theme, height }) => ({
-  backgroundColor: theme.palette.action.hover,
-  borderRadius: theme.shape.borderRadius,
-  height,
-  content: '" "',
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  padding: theme.spacing(0, 1),
+  ...theme.mixins.toolbar,
 }));
 
-export default function DashboardLayoutBasic(props) {
-  const { window } = props;
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })
+(({ theme, open }) => ({
+  width: drawerWidth,
+  flexShrink: 0,
+  whiteSpace: 'nowrap',
+  boxSizing: 'border-box',
+  ...(open ? {
+    ...openedMixin(theme),
+    '& .MuiDrawer-paper': openedMixin(theme),
+  } : {
+    ...closedMixin(theme),
+    '& .MuiDrawer-paper': closedMixin(theme),
+  }),
+}));
 
-  const router = useDemoRouter('/portfolio');
+export default function StockTracker() {
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
 
-  // Remove this const when copying and pasting into your project.
-  const demoWindow = window ? window() : undefined;
+  const handleDrawerClose = () => {
+    setOpen(!open);
+    // setOpen(false);
+  };
 
   return (
-    <AppProvider
-      navigation={NAVIGATION}
-      router={router}
-      theme={demoTheme}
-      window={demoWindow}
-      branding={{
-        logo: <img src="/Logo.png" alt="logo" />,
-        title: 'Stock Tracker',
-        homeUrl: '/toolpad/core/introduction',
-      }}
-    >
-      <DashboardLayout>
-        <PageContainer>
-          <Grid container spacing={1}>
-            <Grid size={5} />
-            <Grid size={12}>
-              <Skeleton height={14} />
-            </Grid>
-            <Grid size={12}>
-              <Skeleton height={14} />
-            </Grid>
-            <Grid size={4}>
-              <Skeleton height={100} />
-            </Grid>
-            <Grid size={8}>
-              <Skeleton height={100} />
-            </Grid>
-
-            <Grid size={12}>
-              <Skeleton height={150} />
-            </Grid>
-            <Grid size={12}>
-              <Skeleton height={14} />
-            </Grid>
-
-            <Grid size={3}>
-              <Skeleton height={100} />
-            </Grid>
-            <Grid size={3}>
-              <Skeleton height={100} />
-            </Grid>
-            <Grid size={3}>
-              <Skeleton height={100} />
-            </Grid>
-            <Grid size={3}>
-              <Skeleton height={100} />
-            </Grid>
-          </Grid>
-        </PageContainer>
-      </DashboardLayout>
-    </AppProvider>
+    <Router>
+      <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        
+        <Drawer variant="permanent" open={open} >
+          <DrawerHeader>
+            <IconButton onClick={handleDrawerClose}>
+              {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
+          <Box sx = {{height: '75%', display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+          <List>
+            {[{ text: 'Home', icon: <HomeIcon />, path: '/' },
+              { text: 'Stocks', icon: <Search />, path: '/search' },
+              { text: 'Positions', icon: <AlignVerticalBottom />, path: '/positions' },
+              { text: 'Dividends', icon: <AttachMoney />, path: '/dividends' },
+              { text: 'News', icon: <Feed />, path: '/news' },
+              { text: 'Earnings', icon: <Phone />, path: '/earnings' }
+            ].map((item, index) => (
+              <ListItem key={item.text} disablePadding sx={{ display: 'block' }}>
+                <ListItemButton
+                  component={Link} to={item.path}
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
+                  }}
+                >
+                  <ListItemIcon sx={{
+                    minWidth: 0,
+                    justifyContent: 'center',
+                    mr: open ? 3 : 'auto',
+                  }}>
+                    {item.icon}
+                  </ListItemIcon>
+                  <ListItemText primary={item.text} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+          </Box>
+          {/* <Divider /> */}
+        </Drawer>
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <DrawerHeader />
+          <Routes>
+            <Route path="/" element={<HomeHome/>} />
+            <Route path="/search" element={<SearchHome/>} />
+            <Route path="/positions" element={<PortfolioHome/>} />
+            <Route path="/dividends" element={<DividendsHome/>} />
+            <Route path="/news" element={<NewsHome/>} />
+            <Route path="/earnings" element={<EarningsHome/>} />
+          </Routes>
+        </Box>
+      </Box>
+    </Router>
   );
 }
