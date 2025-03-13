@@ -43,7 +43,7 @@ export default function Home(){
             <Grid size={5}>
                 <Grid container direction={'column'} spacing={1}>
                     <Grid size={12}>
-                        <Box height={40} />
+                        <Box height={60} />
                     </Grid>
                     <Grid size={12}>
                         <Skeleton height={390} />

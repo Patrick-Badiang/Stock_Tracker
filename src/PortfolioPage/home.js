@@ -14,7 +14,7 @@ export default function home(){
     return (
               <Grid container spacing={1}>
                   <Grid size={6}>
-                      <ChangePortfolioButton/>>
+                      <ChangePortfolioButton/>
                   </Grid>
                   <Grid size={12}>
                       <Skeleton height={800} />

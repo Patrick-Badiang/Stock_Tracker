@@ -1,6 +1,8 @@
 import { Search } from '@mui/icons-material';
 import { Box, InputAdornment, styled, TextField, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
+import SearchBar from '../SearchBar';
+import StockChart from '../StockChat';
 
 const Skeleton = styled('div')(({ theme, height }) => ({
     backgroundColor: theme.palette.action.hover,
@@ -18,17 +20,7 @@ export default function home(){
     <Grid container spacing={1} alignContent={'center'}>
             <Grid size={5} />
             <Grid size={12}>
-                {/* <Skeleton height={60} /> */}
-                <TextField height = {60} variant="outlined" fullWidth placeholder = "Search for a stock" 
-                slotProps={{
-                    input:{
-                        startAdornment: (
-                        <InputAdornment position="start">
-                            <Search />
-                        </InputAdornment>
-                        ),
-                    }}}
-                    />
+                <SearchBar/>
             </Grid>
             <Grid size={12}>
                 <Box height={40} />
@@ -47,12 +39,13 @@ export default function home(){
                 {/* Stock Graph and other Values*/}
                 <Grid container spacing={3}  offset={{ md: 1.3 }}>
                     <Grid size={5}>
-                        <Skeleton height={300} />
+                        <StockChart />
                     </Grid>
                     <Grid size={5}>
                         <Skeleton height={300} />
                     </Grid>
                 </Grid>
+               
                 
                 
                 

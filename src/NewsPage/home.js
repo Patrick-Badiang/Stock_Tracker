@@ -1,5 +1,6 @@
 import { Box, styled } from '@mui/material';
 import Grid from '@mui/material/Grid2';
+import SearchBar from '../SearchBar';
 
 const Skeleton = styled('div')(({ theme, height }) => ({
     backgroundColor: theme.palette.action.hover,
@@ -12,7 +13,7 @@ export default function home(){
     return (
     <Grid container spacing={1}>
             <Grid size={4}>
-              <Skeleton height={70} />
+              <SearchBar />
             </Grid>
             <Grid size={12}>
               <Box height={100} />

@@ -14,7 +14,7 @@ export default function ChangePortfolioButton() {
             {/* <Skeleton height={40} /> */}
             <Grid size={6}>
                 <Box height={50} sx = {{display: 'flex', justifyContent: 'start'}}>
-                <FormControl sx={{ width: '100%', height: 40 }}>
+                <FormControl sx={{ width: '100%', height: 40, textAlign: 'left' }}>
                     <Select
                         value={age}
                         onChange={handleChange}
@@ -24,18 +24,22 @@ export default function ChangePortfolioButton() {
                         <MenuItem value="">
                             <em>Select Portfolio</em>
                         </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
+                        <MenuItem value={10}>Risky Fund</MenuItem>
+                        <MenuItem value={20}>Safety Fund</MenuItem>
+                        <MenuItem value={30}>Roth IRA</MenuItem>
                     </Select>
                 </FormControl>
                 </Box>
             </Grid>
-            <Grid size={3}>
-                <Button variant="contained" color="transparent" sx = {{height: 40, width: '90%'}}>Add New Position</Button>
+            <Grid size={3} alignContent={'flex-end'}>
+
+                <Button variant="contained" color="transparent" sx = {{height: 40, width: '90%'}}>Add a Position</Button>
             </Grid>
-            <Grid size={3}>
+            <Grid size={3} alignContent={'flex-end'}>
                 <Button variant="contained" color="transparent" sx = {{height: 40, width: '90%'}}>Edit Watchlist</Button>
+            </Grid>
+            <Grid size={12}>
+                      <Box height={10} />
             </Grid>
         </Grid>
     )
