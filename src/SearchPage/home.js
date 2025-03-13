@@ -1,5 +1,4 @@
-import { Search } from '@mui/icons-material';
-import { Box, InputAdornment, styled, TextField, Typography } from '@mui/material';
+import { Box, styled, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import SearchBar from '../Components/SearchBar';
 import StockChart from '../Components/StockChat';
@@ -16,11 +15,17 @@ const Skeleton = styled('div')(({ theme, height }) => ({
 
 export default function home(){
 
+
+
+    const handleSearch = (value) => { //Take the value and call stock data API 
+        console.log("Search Value: ", value);
+    }
+
     return (
     <Grid container spacing={1} alignContent={'center'}>
             <Grid size={5} />
             <Grid size={12}>
-                <SearchBar/>
+                <SearchBar onSearch={handleSearch}/>
             </Grid>
             <Grid size={12}>
                 <Box height={40} />

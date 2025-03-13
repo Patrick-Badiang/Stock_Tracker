@@ -1,20 +1,11 @@
-import { Box, Card, Icon, styled, Typography } from '@mui/material';
+import { Box, Card, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import ChangePortfolioButton from '../Components/ChangePortfolioButton';
 import NewsFeed from '../Components/NewsFeed';
 import StockChart from '../Components/StockChat';
-import { ArrowDropDown } from '@mui/icons-material';
 import StockWatcher from './StockWatcher';
+import PortfolioValues from '../Components/PortfolioValues';
 
-const Skeleton = styled('div')(({ theme, height }) => ({
-    backgroundColor: theme.palette.action.hover,
-    borderRadius: theme.shape.borderRadius,
-    borderColor: 'black',
-    borderStyle: 'solid',
-    borderWidth: '1px',
-    height,
-    content: '" "',
-  }));
 
 export default function Home(){
 
@@ -31,30 +22,10 @@ export default function Home(){
                     </Grid>
 
                     <Grid size={12}>
-                      {/* Portfolio Value */}
-                      <Card sx={{height: 100, borderRadius: 2}} elevation={2}>
-                        <Grid container size={12}>
-                          <Grid size={4} direction={'column'} ml={2}>
-                              <Typography align='start'>Portfolio Value</Typography>
-                              <Typography align='start' variant='h4'>$150,000</Typography>
-                          </Grid>
-                          <Grid size={3}>
-                              <Typography align='start'>Dividends</Typography>
-                              <Typography align='start' variant='body1'>$1,500</Typography>
-
-                          </Grid>
-                          <Grid size={3}>
-                              <Typography align='start'>Total Gains/Loss</Typography>
-                              <Typography align='start' variant='body1'>$150,000</Typography>
-
-                          </Grid>
-                          <Grid size={1} alignContent={'flex-end'}>
-                            <Icon>
-                              <ArrowDropDown />
-                            </Icon>
-                          </Grid>
-                        </Grid>
-                      </Card>
+                        {/* Portfolio Value */}
+                        <Card sx={{height: 100, borderRadius: 2}} elevation={2}>
+                            <PortfolioValues/>
+                        </Card>
                     </Grid>
 
 
