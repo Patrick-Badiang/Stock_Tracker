@@ -1,35 +1,22 @@
-import { Box, styled } from '@mui/material';
+import { Box, List, ListItem, styled } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import SearchBar from '../SearchBar';
+import SearchBar from '../Components/SearchBar';
+import NewsFeed from '../Components/NewsFeed';
 
-const Skeleton = styled('div')(({ theme, height }) => ({
-    backgroundColor: theme.palette.action.hover,
-    borderRadius: theme.shape.borderRadius,
-    height,
-    content: '" "',
-  }));
+
 
 export default function home(){
     return (
     <Grid container spacing={1}>
             <Grid size={4}>
-              <SearchBar />
+                <SearchBar />
             </Grid>
             <Grid size={12}>
-              <Box height={100} />
+                <Box height={100} />
             </Grid>
 
             <Grid size={12}>
-              <Skeleton height={100} />
-            </Grid>
-            <Grid size={12}>
-              <Skeleton height={100} />
-            </Grid>
-            <Grid size={12}>
-              <Skeleton height={100} />
-            </Grid>
-            <Grid size={12}>
-              <Skeleton height={100} />
+                <NewsFeed />
             </Grid>
             
         </Grid>

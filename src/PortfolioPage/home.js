@@ -1,7 +1,7 @@
 import { styled } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import Box from '@mui/material/Box';
-import ChangePortfolioButton from '../ChangePortfolioButton';
+import ChangePortfolioButton from '../Components/ChangePortfolioButton';
 
 const Skeleton = styled('div')(({ theme, height }) => ({
     backgroundColor: theme.palette.action.hover,

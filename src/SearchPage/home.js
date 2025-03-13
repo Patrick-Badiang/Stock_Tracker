@@ -1,8 +1,8 @@
 import { Search } from '@mui/icons-material';
 import { Box, InputAdornment, styled, TextField, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import SearchBar from '../SearchBar';
-import StockChart from '../StockChat';
+import SearchBar from '../Components/SearchBar';
+import StockChart from '../Components/StockChat';
 
 const Skeleton = styled('div')(({ theme, height }) => ({
     backgroundColor: theme.palette.action.hover,

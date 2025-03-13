@@ -126,7 +126,7 @@ export default function StockTracker() {
           <List>
             <ListItem>
             <ListItemIcon>
-              <Avatar alt="Remy Sharp" src={MyLogo}/>
+              <Avatar alt="Remy Sharp" src={MyLogo} sx={{height:64, width:44}}/>
             </ListItemIcon>
             <ListItemText primary="Kustu" />
             </ListItem>

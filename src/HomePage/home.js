@@ -1,6 +1,8 @@
-import { Box, Card,  styled, Typography } from '@mui/material';
+import { Box, Card, styled, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import ChangePortfolioButton from '../ChangePortfolioButton';
+import ChangePortfolioButton from '../Components/ChangePortfolioButton';
+import NewsFeed from '../Components/NewsFeed';
+import StockChart from '../Components/StockChat';
 
 const Skeleton = styled('div')(({ theme, height }) => ({
     backgroundColor: theme.palette.action.hover,
@@ -25,8 +27,9 @@ export default function Home(){
                     <Grid size={12}>
                       <Box height={10} />
                     </Grid>
+
                     <Grid size={12}>
-                      {/* <Skeleton height={100} /> */}
+                      {/* Portfolio Value */}
                       <Card sx={{height: 100, borderRadius: 2}} elevation={2}>
                         <Grid container size={12}>
                           <Grid size={4} direction={'column'} ml={2}>
@@ -43,17 +46,28 @@ export default function Home(){
                               <Typography align='start' variant='body1'>$150,000</Typography>
 
                           </Grid>
-
-
                         </Grid>
-                        
                       </Card>
                     </Grid>
+
+
                     <Grid size={12}>
                       <Box height={30} />
                     </Grid>
+
+
                     <Grid size={12}>
-                    <Skeleton height={690} />
+                        {/* News*/}
+                        <Card sx={{height: 690, borderRadius: 2}} elevation={2}>
+                          <Grid container size={12}>
+                            <Grid size={12}>
+                              <Typography variant='h5'>News</Typography>
+                            </Grid>
+                            <Grid size={12}>
+                              <NewsFeed/>
+                            </Grid>
+                          </Grid>
+                        </Card>
                     </Grid>
                 </Grid>
             </Grid>
@@ -72,7 +86,7 @@ export default function Home(){
                         <Box height={20} />
                     </Grid>
                     <Grid size={12}>
-                        <Skeleton height={390} />
+                        <StockChart/>
                     </Grid>
                 </Grid>
             </Grid>
