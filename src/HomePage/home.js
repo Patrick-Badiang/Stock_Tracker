@@ -1,6 +1,5 @@
-import { Box, Button, FormControl, MenuItem, Select, styled } from '@mui/material';
+import { Box, Card,  styled, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import { useState } from 'react';
 import ChangePortfolioButton from '../ChangePortfolioButton';
 
 const Skeleton = styled('div')(({ theme, height }) => ({
@@ -27,7 +26,28 @@ export default function Home(){
                       <Box height={10} />
                     </Grid>
                     <Grid size={12}>
-                      <Skeleton height={100} />
+                      {/* <Skeleton height={100} /> */}
+                      <Card sx={{height: 100, borderRadius: 2}} elevation={2}>
+                        <Grid container size={12}>
+                          <Grid size={4} direction={'column'} ml={2}>
+                              <Typography align='start'>Portfolio Value</Typography>
+                              <Typography align='start' variant='h4'>$150,000</Typography>
+                          </Grid>
+                          <Grid size={3}>
+                              <Typography align='start'>Dividends</Typography>
+                              <Typography align='start' variant='body1'>$1,500</Typography>
+
+                          </Grid>
+                          <Grid size={3}>
+                              <Typography align='start'>Total Gains/Loss</Typography>
+                              <Typography align='start' variant='body1'>$150,000</Typography>
+
+                          </Grid>
+
+
+                        </Grid>
+                        
+                      </Card>
                     </Grid>
                     <Grid size={12}>
                       <Box height={30} />
