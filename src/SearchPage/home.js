@@ -41,8 +41,63 @@ export default function home(){
                     <Grid size={5}>
                         <StockChart />
                     </Grid>
-                    <Grid size={5}>
-                        <Skeleton height={300} />
+                    <Grid size={5} mt = {8}>
+                        
+                        {/* <Box height={300} sx={{borderRadius: 2, borderColor: 'black', borderStyle: 'solid', borderWidth: '1px'}}> */}
+                            <Grid container spacing={1} size={12} direction={'row'}>
+                                <Grid container size={6} direction={'column'} spacing={1}>
+                                    <Grid size={12}>
+                                        <Typography variant={'body1'} align='start' mt={2}>
+                                        Market Cap: $1.00B</Typography>
+                                    </Grid>
+                                    <Grid size={12}>
+                                        <Typography variant={'body1'} align='start' mt={2}>
+                                        PE Ratio: 0.00</Typography>
+                                    </Grid>
+                                    <Grid size={12}>
+                                        <Typography variant={'body1'} align='start' mt={2}>
+                                        Dividend Yield: 0.00%</Typography>
+                                    </Grid>
+                                    <Grid size={12}>
+                                        <Typography variant={'body1'} align='start' mt={2}>
+                                        Market Cap: $1.00B</Typography>
+                                    </Grid>
+                                    <Grid size={12}>
+                                        <Typography variant={'body1'} align='start' mt={2}>
+                                        Market Cap: $1.00B</Typography>
+                                    </Grid>
+
+                                </Grid>
+                                <Grid container size={6} direction={'column'} spacing={1}>
+                                    <Grid size={12}>
+                                        <Typography variant={'body1'} align='start' mt={2}>
+                                        Market Cap: $1.00B</Typography>
+                                    </Grid>
+                                    <Grid size={12}>
+                                        <Typography variant={'body1'} align='start' mt={2}>
+                                        PE Ratio: 0.00</Typography>
+                                    </Grid>
+                                    <Grid size={12}>
+                                        <Typography variant={'body1'} align='start' mt={2}>
+                                        Dividend Yield: 0.00%</Typography>
+                                    </Grid>
+                                    <Grid size={12}>
+                                        <Typography variant={'body1'} align='start' mt={2}>
+                                        Market Cap: $1.00B</Typography>
+                                    </Grid>
+                                    <Grid size={12}>
+                                        <Typography variant={'body1'} align='start' mt={2}>
+                                        Market Cap: $1.00B</Typography>
+                                    </Grid>
+
+                                </Grid>
+
+                            
+                            
+                           
+                            
+                            </Grid>
+                        {/* </Box> */}
                     </Grid>
                 </Grid>
                

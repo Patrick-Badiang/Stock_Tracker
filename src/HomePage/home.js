@@ -1,8 +1,10 @@
-import { Box, Card, styled, Typography } from '@mui/material';
+import { Box, Card, Icon, styled, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import ChangePortfolioButton from '../Components/ChangePortfolioButton';
 import NewsFeed from '../Components/NewsFeed';
 import StockChart from '../Components/StockChat';
+import { ArrowDropDown } from '@mui/icons-material';
+import StockWatcher from './StockWatcher';
 
 const Skeleton = styled('div')(({ theme, height }) => ({
     backgroundColor: theme.palette.action.hover,
@@ -46,6 +48,11 @@ export default function Home(){
                               <Typography align='start' variant='body1'>$150,000</Typography>
 
                           </Grid>
+                          <Grid size={1} alignContent={'flex-end'}>
+                            <Icon>
+                              <ArrowDropDown />
+                            </Icon>
+                          </Grid>
                         </Grid>
                       </Card>
                     </Grid>
@@ -80,7 +87,9 @@ export default function Home(){
                         <Box height={60} />
                     </Grid>
                     <Grid size={12}>
-                        <Skeleton height={390} />
+                        <Box height={390}>
+                          <StockWatcher/>
+                        </Box>
                     </Grid>
                     <Grid size={12}>
                         <Box height={20} />
