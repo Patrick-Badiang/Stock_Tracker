@@ -1,0 +1,39 @@
+{
+    "name": "Roth IRA",
+    "value": 20000,
+    "stocks": [
+        {
+            "symbol": "VOO",
+            "sector": "ETF",
+            "quantity": 2,
+            "price": 100
+        },
+        {
+            "symbol": "VGT",
+            "sector": "ETF",
+            "quantity": 1,
+            "price": 300
+        },
+        {
+            "symbol": "VCR",
+            "sector": "ETF",
+            "quantity": 1,
+            "price": 200
+        },
+        {
+            "symbol": "VDC",
+            "sector": "ETF",
+            "quantity": 1,
+            "price": 150
+        },
+        {
+            "symbol": "VHT",
+            "sector": "ETF",
+            "quantity": 1,
+            "price": 250
+        }
+    ],
+    "cash": 200,
+    "dividends": 3000,
+    "changeInValue": -100
+}

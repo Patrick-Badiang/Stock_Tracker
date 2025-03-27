@@ -1,0 +1,39 @@
+{
+    "name": "Brokerage Account",
+    "value": 100000,
+    "stocks": [
+        {
+            "symbol": "AAPL",
+            "sector": "Technology",
+            "quantity": 100,
+            "price": 150
+        },
+        {
+            "symbol": "GOOGL",
+            "sector": "Technology",
+            "quantity": 50,
+            "price": 2000
+        },
+        {
+            "symbol": "AMZN",
+            "sector": "Technology",
+            "quantity": 25,
+            "price": 3000
+        },
+        {
+            "symbol": "TSLA",
+            "sector": "Technology",
+            "quantity": 10,
+            "price": 700
+        },
+        {
+            "symbol": "ASML",
+            "sector": "Chips",
+            "quantity": 50,
+            "price": 300
+        }
+    ],
+    "cash": 50000,
+    "dividends": 1000,
+    "changeInValue": 20000
+}

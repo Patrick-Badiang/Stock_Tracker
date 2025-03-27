@@ -1,0 +1,16 @@
+{
+    "portfolios": [
+        {
+            "name": "Brokerage Account",
+            "file": "Portfolio1.json"
+        },
+        {
+            "name": "Roth IRA",
+            "file": "Portfolio2.json"
+        },
+        {
+            "name": "Risky Portfolio",
+            "file": "Portfolio3.json"
+        }
+    ]
+}
