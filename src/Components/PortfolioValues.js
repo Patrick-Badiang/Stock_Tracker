@@ -1,6 +1,6 @@
 import { ArrowDropDown } from "@mui/icons-material";
 import { Icon, Typography } from "@mui/material";
-import Grid from "@mui/material/Grid";
+import Grid from "@mui/material/Grid2";
 import { usePortfolio } from "../Context/PortfolioContext"; 
 
 export default function PortfolioValues() {
