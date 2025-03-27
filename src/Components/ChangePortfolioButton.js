@@ -9,6 +9,9 @@ const portfolios = data.portfolios;
 export default function ChangePortfolioButton() {
     const { selectedPortfolio, setSelectedPortfolio } = usePortfolio();
     const [localSelection, setLocalSelection] = useState("");
+    const { portfolioData } = usePortfolio(); // Access global portfolio data
+    
+
 
     const handleChange = (event) => {
         const selectedName = event.target.value;
@@ -23,7 +26,7 @@ export default function ChangePortfolioButton() {
             <Grid size={6}>
                 <Box height={50} sx = {{display: 'flex', justifyContent: 'start'}}>
                     <FormControl sx={{ width: "100%", height: 40, textAlign: "left" }}>
-                        <Select value={localSelection} onChange={handleChange} displayEmpty>
+                        <Select value={portfolioData?.name?.toString() || ""} onChange={handleChange} displayEmpty>
                             <MenuItem value="">
                                 <em>Select Portfolio</em>
                             </MenuItem>
