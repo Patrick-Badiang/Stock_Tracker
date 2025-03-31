@@ -5,6 +5,7 @@ import NewsFeed from '../Components/NewsFeed';
 import StockChart from '../Components/StockChat';
 import StockWatcher from './StockWatcher';
 import PortfolioValues from '../Components/PortfolioValues';
+import { Link } from 'react-router-dom';
 
 
 export default function Home(){
@@ -23,9 +24,11 @@ export default function Home(){
 
                     <Grid size={12}>
                         {/* Portfolio Value */}
+                        <Link to="/positions" style={{ textDecoration: 'none', color: 'inherit' }}>
                         <Card sx={{height: 100, borderRadius: 2}} elevation={2}>
                             <PortfolioValues/>
                         </Card>
+                        </Link>
                     </Grid>
 
 

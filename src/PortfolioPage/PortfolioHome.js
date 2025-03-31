@@ -50,8 +50,6 @@ export default function Home(){
                                       <Skeleton height={385} />
                                   </Grid>
                               </Grid>
-                                  
-                                  
                           </Grid>
                   </Box>
             </Card>
@@ -66,7 +64,7 @@ export default function Home(){
           </Grid>
           <Card elevation = {2}>
                 <Box sx = {{height: 800, width: '100%'}}>
-                        <Grid container direction= 'row' size={12} spacing={1} m={1}>
+                        <Grid container direction= 'row' size={12} spacing={1} >
                             
                             {/* Portfolio Values and Stocks*/}
                             <Grid container size={6} direction={'column'}>
@@ -75,10 +73,10 @@ export default function Home(){
                                 <Grid size={12}>
                                     <PortfolioValues/>
                                 </Grid>
-                                <Grid size= {12}>
+                                <Grid size= {12} m={1}>
                                     {/* <Skeleton height={705} /> */}
                                     <Box height={750} >
-                                        <Typography variant='h6' sx={{ padding: 1 }}>
+                                        <Typography variant='h3' >
                                             Stocks
                                         </Typography>
                                         <List sx={{ maxHeight: 700, overflowY: 'auto' }}>
@@ -89,9 +87,6 @@ export default function Home(){
                                                     <span>${((stock.quantity || 0) * (stock.price || 0)).toLocaleString()}</span>
                                                     
                                                 </Box>
-                                                
-                                                 {/* <Skeleton height={50} sx = {{width: '100%'}}/> */}
-
                                             </List>
                                         ))}
                                         </List>
@@ -100,7 +95,7 @@ export default function Home(){
                             </Grid>
                             
                             {/* Graphs and charts*/}
-                            <Grid container size={6} direction={'column'}>
+                            <Grid container size={6} direction={'column'} >
 
                                 {/* Portfolio Values*/}
                                 <Grid size={12}>
