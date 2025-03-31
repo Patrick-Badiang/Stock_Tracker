@@ -11,30 +11,32 @@ export default function PortfolioValues() {
     }
 
     return (
-        <Grid container spacing={2}>
-            <Grid item xs={4} direction="column" ml={2}>
-                <Typography align="start">Portfolio Value</Typography>
-                <Typography align="start" variant="h4">
-                    ${portfolioData.value.toLocaleString()}
-                </Typography>
-            </Grid>
-            <Grid item xs={3}>
-                <Typography align="start">Dividends</Typography>
-                <Typography align="start" variant="body1">
-                    ${portfolioData.dividends.toLocaleString()}
-                </Typography>
-            </Grid>
-            <Grid item xs={3}>
-                <Typography align="start">Total Gains/Loss</Typography>
-                <Typography align="start" variant="body1">
-                    ${portfolioData.changeInValue.toLocaleString()}
-                </Typography>
-            </Grid>
-            <Grid item xs={1} alignContent="flex-end">
-                <Icon>
-                    <ArrowDropDown />
-                </Icon>
-            </Grid>
+        <Grid container size={12}>
+        <Grid size={4} direction={'column'} ml={2}>
+            <Typography align='start'>Portfolio Value</Typography>
+            <Typography align='start' variant='h4'>
+                ${portfolioData.value.toLocaleString()}
+            </Typography>
         </Grid>
+        <Grid size={3}>
+            <Typography align='start'>Dividends</Typography>
+            <Typography align='start' variant='body1'>
+                ${portfolioData.dividends.toLocaleString()}
+            </Typography>
+
+        </Grid>
+        <Grid size={3}>
+            <Typography align='start'>Total Gains/Loss</Typography>
+            <Typography align='start' variant='body1'>
+                ${portfolioData.changeInValue.toLocaleString()}
+            </Typography>
+
+        </Grid>
+        <Grid size={1} alignContent={'flex-end'}>
+        <Icon>
+            <ArrowDropDown />
+        </Icon>
+        </Grid>
+    </Grid>
     );
 }
