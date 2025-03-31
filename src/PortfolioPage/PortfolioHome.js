@@ -1,4 +1,4 @@
-import { Card, styled } from '@mui/material';
+import { Card, List, styled, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import Box from '@mui/material/Box';
 import ChangePortfolioButton from '../Components/ChangePortfolioButton';
@@ -76,8 +76,26 @@ export default function Home(){
                                     <PortfolioValues/>
                                 </Grid>
                                 <Grid size= {12}>
-                                    <Skeleton height={705} />
-                                    
+                                    {/* <Skeleton height={705} /> */}
+                                    <Box height={750} >
+                                        <Typography variant='h6' sx={{ padding: 1 }}>
+                                            Stocks
+                                        </Typography>
+                                        <List sx={{ maxHeight: 700, overflowY: 'auto' }}>
+                                        {portfolioData.stock.map((stock) => (
+                                            <List key={stock.symbol}>
+                                                <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: 1 }}>
+                                                    <span>{stock.symbol}</span>
+                                                    <span>${((stock.quantity || 0) * (stock.price || 0)).toLocaleString()}</span>
+                                                    
+                                                </Box>
+                                                
+                                                 {/* <Skeleton height={50} sx = {{width: '100%'}}/> */}
+
+                                            </List>
+                                        ))}
+                                        </List>
+                                    </Box>
                                 </Grid>
                             </Grid>
                             

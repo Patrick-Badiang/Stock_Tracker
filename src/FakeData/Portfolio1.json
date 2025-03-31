@@ -1,7 +1,7 @@
 {
     "name": "Brokerage Account",
     "value": 100000,
-    "stocks": [
+    "stock": [
         {
             "symbol": "AAPL",
             "sector": "Technology",

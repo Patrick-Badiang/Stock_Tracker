@@ -1,7 +1,7 @@
 {
     "name": "Roth IRA",
     "value": 20000,
-    "stocks": [
+    "stock": [
         {
             "symbol": "VOO",
             "sector": "ETF",

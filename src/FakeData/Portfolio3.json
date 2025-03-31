@@ -1,7 +1,7 @@
 {
     "name": "Risky Portfolio",
     "value": 150000,
-    "stocks": [
+    "stock": [
         {
             "symbol": "VOO",
             "sector": "ETF",
