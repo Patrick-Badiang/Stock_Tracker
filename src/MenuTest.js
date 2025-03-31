@@ -15,7 +15,7 @@ import { Search, AttachMoney, AlignVerticalBottom, Feed, Phone, Person } from '@
 import HomeHome from './HomePage/home';
 import SearchHome from './SearchPage/home';
 import DividendsHome from './DividendsPage/home';
-import PortfolioHome from './PortfolioPage/home';
+import PortfolioHome from './PortfolioPage/PortfolioHome';
 import EarningsHome from './EarningsPage/home';
 import NewsHome from './NewsPage/home';
 

@@ -1,5 +1,5 @@
 import { ArrowDropDown } from "@mui/icons-material";
-import { Icon, Typography } from "@mui/material";
+import { Box, Icon, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { usePortfolio } from "../Context/PortfolioContext"; 
 
@@ -7,7 +7,9 @@ export default function PortfolioValues() {
     const { portfolioData } = usePortfolio(); // Access global portfolio data
 
     if (!portfolioData) {
-        return <Typography align="center">Select a portfolio to view details</Typography>;
+        return (<Box sx={{ height: 65, width: '100%' }}>
+            <Typography align="center">Select a portfolio to view details</Typography>
+            </Box>);
     }
 
     return (
