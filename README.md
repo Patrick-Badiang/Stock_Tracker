@@ -6,7 +6,7 @@ What makes this app different from other portfolio trackers is our price, our vi
 
 Through making more visually appealing sections, I believe KuStu Stock Tracker will be a sensational hit for new financial investors.
 
-## Architecture
+# Architecture
 
 We will use Alpha Vantage API where we can then look for AWS API calls to reduce price where we can.
 
