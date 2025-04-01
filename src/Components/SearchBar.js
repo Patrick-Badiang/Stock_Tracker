@@ -4,7 +4,7 @@ import axios from "axios";
 import { TextField, InputAdornment } from "@mui/material";
 import { Search } from "@mui/icons-material";
 
-const API_ENDPOINT = process.env.REACT_APP_API_URL || "https://www.alphavantage.co/query"; // Placeholder for future AWS endpoint
+const API_ENDPOINT = process.env.REACT_APP_SEARCH_API_ENDPOINT || "https://www.alphavantage.co/query"; // Placeholder for future AWS endpoint
 const API_KEY = process.env.REACT_APP_ALPHA_API_KEY; // Use environment variable for easy switch
 
 export default function SearchBar() {
@@ -15,7 +15,7 @@ export default function SearchBar() {
         if (!searchTerm) return;
 
         try {
-            const response = await fetch(`${API_ENDPOINT}`, {
+            const response = await axios.get(`${API_ENDPOINT}`, {
                 params: {
                     function: "SYMBOL_SEARCH",
                     keywords: searchTerm,
@@ -23,14 +23,15 @@ export default function SearchBar() {
                 }
             });
             // onResults(response.data);
-            console.log("API Response:", searchTerm);
+            // console.log("API Searching with key: ", searchTerm);
+            // console.log(response.data);
         } catch (error) {
             console.error("API Error:", error);
         }
     };
 
     // Debounced search function
-    const debouncedSearch = debounce(fetchSearchResults, 300);
+    const debouncedSearch = debounce(fetchSearchResults, 500);
 
     useEffect(() => {
         if (query) debouncedSearch(query);
