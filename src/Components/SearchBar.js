@@ -16,22 +16,23 @@ export default function SearchBar() {
     const fetchSearchResults = async (searchTerm) => {
         if (!searchTerm) return;
 
-        try {
-            const response = await axios.get(API_ENDPOINT, {
-                params: {
-                    function: "SYMBOL_SEARCH",
-                    keywords: searchTerm,
-                    apikey: API_KEY
-                }
-            });
+        // try {
+        //     const response = await axios.get(API_ENDPOINT, {
+        //         params: {
+        //             function: "SYMBOL_SEARCH",
+        //             keywords: searchTerm,
+        //             apikey: API_KEY
+        //         }
+        //     });
 
-            if (response.data.bestMatches) {
-                setResults(response.data.bestMatches); // Update state with results
-                setShowResults(true);
-            }
-        } catch (error) {
-            console.error("API Error:", error);
-        }
+        //     if (response.data.bestMatches) {
+        //         setResults(response.data.bestMatches); // Update state with results
+        //         setShowResults(true);
+        //     }
+        // } catch (error) {
+        //     console.error("API Error:", error);
+        // }
+        console.log("API Call:", searchTerm);
     };
 
     // Debounced search function
