@@ -7,42 +7,60 @@
             "sector": "Technology",
             "quantity": 100,
             "bought_price": 150,
-            "current_price": 170
+            "current_price": 170,
+            "week_high": 180,
+            "week_low": 120,
+            "latest_five_week_close": [160, 150, 130, 120, 100]
         },
         {
             "symbol": "GOOGL",
             "sector": "Technology",
             "quantity": 50,
-            "bought_price": 2000,
-            "current_price": 2200
+            "bought_price": 200,
+            "current_price": 180,
+            "week_high": 210,
+            "week_low": 150,
+            "latest_five_week_close": [190, 185, 180, 175, 160]
         },
         {
             "symbol": "AMZN",
             "sector": "Technology",
             "quantity": 25,
-            "bought_price": 3000,
-            "current_price": 2800
+            "bought_price": 200,
+            "current_price": 250,
+            "week_high": 300,
+            "week_low": 150,
+            "latest_five_week_close": [240, 245, 250, 255, 280]
         },
         {
             "symbol": "TSLA",
             "sector": "Technology",
             "quantity": 10,
             "bought_price": 700,
-            "current_price": 800
+            "current_price": 800,
+            "week_high": 900,
+            "week_low": 600,
+            "latest_five_week_close": [750, 760, 770, 780, 800]
         },
         {
             "symbol": "NVDIA",
             "sector": "Technology",
             "quantity": 10,
             "bought_price": 900,
-            "current_price": 800
+            "current_price": 800,
+            "week_high": 1000,
+            "week_low": 700,
+            "latest_five_week_close": [850, 860, 870, 880, 890]
         },
         {
             "symbol": "ASML",
             "sector": "Chips",
             "quantity": 50,
             "bought_price": 300,
-            "current_price": 200
+            "current_price": 200,
+            "week_high": 400,
+            "week_low": 150,
+            "latest_five_week_close": [250, 260, 270, 280, 290]
         }
     ],
     "performance": [

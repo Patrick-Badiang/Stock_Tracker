@@ -7,35 +7,50 @@
             "sector": "REIT",
             "quantity": 2,
             "bought_price": 60,
-            "current_price": 70
+            "current_price": 70,
+            "week_high": 80,
+            "week_low": 40,
+            "latest_five_week_close": [65, 68, 70, 72, 78]
         },
         {
             "symbol": "META",
             "sector": "TECHNOLOGY",
             "quantity": 1,
             "bought_price": 400,
-            "current_price": 450
+            "current_price": 450,
+            "week_high": 500,
+            "week_low": 310,
+            "latest_five_week_close": [410, 420, 430, 440, 450]
         },
         {
             "symbol": "UBER",
             "sector": "TECH",
             "quantity": 1,
             "bought_price": 70,
-            "current_price": 80
+            "current_price": 80,
+            "week_high": 90,
+            "week_low": 30,
+            "latest_five_week_close": [75, 78, 80, 82, 82]
         },
         {
             "symbol": "NFLX",
             "sector": "TECH",
             "quantity": 1,
             "bought_price": 900,
-            "current_price": 948
+            "current_price": 948,
+            "week_high": 1000,
+            "week_low": 800,
+            "latest_five_week_close": [910, 920, 930, 940, 948]
         },
         {
             "symbol": "DIS",
             "sector": "TECH",
             "quantity": 1,
             "bought_price": 250,
-            "current_price": 245
+            "current_price": 245,
+            "week_high": 300,
+            "week_low": 200,
+            "latest_five_week_close": [255, 260, 265, 270, 245]
         }
         
     ],

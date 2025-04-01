@@ -2,10 +2,11 @@ import React from "react";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 import { usePortfolio } from "../Context/PortfolioContext";
+import { Typography } from "@mui/material";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const StockWatcher = ({ unit = "$" }) => {
+const StockWatcher = ({ unit}) => {
   // Simulated stock TTM price changes (negative values indicate below usual levels)
   // const stockData = [
   //   { name: "Company A", change: -12 },
@@ -23,29 +24,33 @@ const StockWatcher = ({ unit = "$" }) => {
       </div>
     );
   }
-  // const { stockData } = portfolioData.stock; // Access global portfolio data
 
-  // if (!stockData) {
-  //   return (
-  //     <div className="p-4 bg-white shadow-lg rounded-lg w-full max-w-lg" style={{ height: "100%" }}>
-  //       <h2 className="text-xl font-bold mb-4">No stock data available</h2>
-  //     </div>
-  //   );
-  // }
-  
   const data = {
-    labels: portfolioData.stock.map((stock) => stock.symbol),
+    labels: portfolioData.stock.map(stock => stock.symbol),
     datasets: [
-      {
-        label: `TTM Price Change (${unit})`,
-        data: portfolioData.stock.map((stock) => (stock.current_price || 0) - (stock.bought_price || 0)),
-        backgroundColor: portfolioData.stock.map((stock) => (stock.current_price || 0) - (stock.bought_price || 0) < 0 ? "#FF4C4C" : "#4CAF50"),
-        borderColor: "black",
-        borderWidth: 1,
-      },
-    ],
-  };
+        {
+            label: `% Difference from 5-Day SMA`,
+            data: portfolioData.stock.map(stock => {
+                const closes = stock.latest_five_week_close || [];
+                const sum = closes.reduce((sum, close) => sum + close, 0);
+                const sma = sum / 5;
 
+                // Calculate percentage difference relative to SMA
+                return ((sma - stock.current_price) / stock.current_price) * 100;
+            }),
+            backgroundColor: portfolioData.stock.map(stock => {
+                const closes = stock.latest_five_week_close || [];
+                const sum = closes.reduce((sum, close) => sum + close, 0);
+                const sma = sum / 5;
+
+                // Red if current price is below SMA, Green if above
+                return stock.current_price > sma ? "#FF4C4C" : "#4CAF50"; 
+            }),
+            borderColor: "black",
+            borderWidth: 1,
+        },
+    ],
+};
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -63,7 +68,8 @@ const StockWatcher = ({ unit = "$" }) => {
 
   return (
     <div className="p-4 bg-white shadow-lg rounded-lg w-full max-w-lg" style={{ height: "100%" }}>
-      <Bar data={data} options={options} />
+      <Typography variant="body" fontWeight={'bold'}>Price to SMA</Typography>
+      <Bar data={data} options={options}  />
     </div>
   );
 };

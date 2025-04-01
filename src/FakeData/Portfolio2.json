@@ -7,49 +7,70 @@
             "sector": "ETF",
             "quantity": 2,
             "bought_price": 229,
-            "current_price": 300
+            "current_price": 300,
+            "week_high": 350,
+            "week_low": 200,
+            "latest_five_week_close": [250, 260, 270, 280, 290]
         },
         {
             "symbol": "SCHD",
             "sector": "ETF",
             "quantity": 2,
             "bought_price": 70,
-            "current_price": 140
+            "current_price": 140,
+            "week_high": 150,
+            "week_low": 60,
+            "latest_five_week_close": [80, 90, 100, 110, 120]
         },
         {
             "symbol": "VOO",
             "sector": "ETF",
             "quantity": 2,
             "bought_price": 100,
-            "current_price": 95
+            "current_price": 95,
+            "week_high": 120,
+            "week_low": 80,
+            "latest_five_week_close": [110, 115, 120, 125, 130]
         },
         {
             "symbol": "VGT",
             "sector": "ETF",
             "quantity": 1,
             "bought_price": 300,
-            "current_price": 330
+            "current_price": 330,
+            "week_high": 350,
+            "week_low": 250,
+            "latest_five_week_close": [310, 320, 320, 330, 350]
         },
         {
             "symbol": "VCR",
             "sector": "ETF",
             "quantity": 1,
             "bought_price": 200,
-            "current_price": 220
+            "current_price": 220,
+            "week_high": 250,
+            "week_low": 180,
+            "latest_five_week_close": [210, 210, 215, 220, 210]
         },
         {
             "symbol": "VDC",
             "sector": "ETF",
             "quantity": 1,
             "bought_price": 150,
-            "current_price": 160
+            "current_price": 160,
+            "week_high": 180,
+            "week_low": 140,
+            "latest_five_week_close": [160, 178, 180, 172, 180]
         },
         {
             "symbol": "VHT",
             "sector": "ETF",
             "quantity": 1,
             "bought_price": 250,
-            "current_price": 230
+            "current_price": 230,
+            "week_high": 270,
+            "week_low": 220,
+            "latest_five_week_close": [240, 245, 250, 255, 230]
         }
     ],
     "performance": [

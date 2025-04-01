@@ -1,6 +1,7 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
+import { Typography } from "@mui/material";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -34,8 +35,9 @@ const CAGRChart = ({ dataPoints }) => {
   };
 
   return (
-    <div className="p-4 bg-white shadow-lg rounded-lg w-full max-w-lg" style={{ maxHeight: "330px" }}>
-      <h2 className="text-xl font-bold mb-4">Stock Portfolio CAGR</h2>
+    <div className="p-4 bg-white shadow-lg rounded-lg w-full max-w-lg" style={{ height: "100%" }}>
+      <Typography variant="body" fontWeight={'bold'}>Stock Portfolio CAGR</Typography>
+
       <Line data={data} options={options} />
     </div>
   );

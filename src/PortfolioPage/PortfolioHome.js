@@ -109,19 +109,22 @@ export default function Home(){
                             </Grid>
                             
                             {/* Graphs and charts*/}
-                            <Grid container size={6} direction={'column'} alignContent={'flex-end'} >
+                            <Grid container size={6} direction={'column'} alignContent={'flex-end'} spacing={4} >
 
                                 {/* Portfolio Values*/}
                                 <Grid size={11} mr={2}>
                                     {/* <Skeleton height={385} /> */}
                                     <Box height={360}>
-                                        <StockWatcher unit="$" stockData={portfolioData.stock}/>
+                                        <StockWatcher unit="%" stockData={portfolioData.stock}/>
                                     </Box>      
                                     
                                 </Grid>
+                                
                                 <Grid size= {11}>
                                     {/* <Skeleton height={385} /> */}
-                                    <CAGRChart dataPoints={portfolioData.performance} />
+                                    <Box height={360}>
+                                        <CAGRChart dataPoints={portfolioData.performance} />
+                                    </Box>
                                 </Grid>
                             </Grid>
                                 

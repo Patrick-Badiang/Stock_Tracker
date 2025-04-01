@@ -71,7 +71,7 @@ export default function Home(){
                     </Grid>
                     <Grid size={12}>
                         <Box height={390}>
-                          <StockWatcher unit='$'/>
+                          <StockWatcher  unit='$'/>
                         </Box>
                     </Grid>
                     <Grid size={12}>
