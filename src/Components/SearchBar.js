@@ -8,7 +8,7 @@ import { Search } from "@mui/icons-material";
 import stockData from "../Database/stock_list.json"; // Ensure this JSON file is stored in your project
 
 // Function to perform "best match" search
-export function bestMatchSearch(query, topN = 5) {
+function bestMatchSearch(query, topN = 5) {
     if (!query) return [];
 
     query = query.toUpperCase();
@@ -34,6 +34,7 @@ export function bestMatchSearch(query, topN = 5) {
 export default function SearchBar() {
     const [query, setQuery] = useState("");
     const [results, setResults] = useState([]);
+    const [showResults, setShowResults] = useState(false);
 
     // Function to handle search input with debouncing
     const handleSearch = debounce((searchTerm) => {
@@ -44,6 +45,7 @@ export default function SearchBar() {
     const handleSelect = (symbol) => {
         setQuery(symbol);
         setResults([]);
+        setShowResults(false);
         // Perform any action with the selected stock symbol
         console.log("Selected stock symbol:", symbol);
         // For example, you can redirect to another page or fetch stock data
@@ -60,6 +62,7 @@ export default function SearchBar() {
                 fullWidth
                 placeholder="Search for a stock"
                 value={query}
+                onFocus={() => setShowResults(true)}
                 onChange={(e) => setQuery(e.target.value.toUpperCase())}
                 InputProps={{
                     startAdornment: (
@@ -71,7 +74,7 @@ export default function SearchBar() {
             />
             
             {/* Render results */}
-            {results.length > 0 && (
+            {showResults && results.length > 0 && (
                 <Paper style={{ position: "absolute", width: "100%", zIndex: 10 }}>
                 <List style={{ maxHeight: 300, overflowY: "auto" }}>
                     {results.map((stock) => (
@@ -80,14 +83,6 @@ export default function SearchBar() {
                         </ListItem>
                     ))}
                 </List>
-                
-                {/* <List>
-                    {results.map((stock, index) => (
-                        <ListItem key={index} button onClick={() => handleSelect(stock["1. symbol"])}>
-                            <ListItemText primary={stock["1. symbol"]} secondary={stock["2. name"]} />
-                        </ListItem>
-                    ))}
-                </List> */}
             </Paper>
             )}
         </div>
