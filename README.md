@@ -1,70 +1,75 @@
-# Getting Started with Create React App
+# KuStu Stock Tracker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+KuStu Stock tracker will be one service that KuStu will offer to customers. They will be able to analyze their portfolio holdings and analyze future positions.
+We will strive to make finding data more reliable and more convenient through more visual data. Our audience will be college students and people that are new to the financial field.
 
-## Available Scripts
+What makes this app different from other portfolio trackers is our price, our visual data, and our more modern and clean look. Other portfolio trackers have a steep price to use their platform as well as are hard to look at when looking for new positions. 
 
-In the project directory, you can run:
+Through making more visually appealing sections I believe KuStu Stock Tracker will be a sensational hit to new financial investors.
 
-### `npm start`
+# Architecture
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+We will use Alpha Vantage API where we can then look for AWS API calls to reduce price where we can.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# Alpha Vantage Plan
 
-### `npm test`
+Alpha Vantage has the following price list:
+    - 75 calls / min    $49.99
+    - 150 calls / min   $99.99
+    - 300 calls / min   $149.99
+    - 600 calls / min   $199.99
+    - 1200 calls / min  $249.99
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+We will aim for 300 calls / min plan at $149.99 a month. We may be able to reduce pricing even more.
 
-### `npm run build`
+# Alpha Vantage Use
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The Alpha Vantage API has many uses but we will use it only for fundamental stock data, this includes:
+    - Stock close price of the day before
+    - Stock price of when they bought it
+    - Stock Company Overview
+        -   Exchange
+        -   EPS
+        -   Dividend Yield
+        -   Dividend per Share
+        -   EBITDA
+        -   50 day SMA
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# AWS Use
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+AWS will help reduce API calls to Alpha Vantage, lowering overall cost.
 
-### `npm run eject`
+The main contention of high API calls will be from searching and this can be solved by having our own 'best match' algorithm through our database.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+We will use the following services:
+    -   API Gateway
+    -   Secrets Manager
+    -   Lambda
+    -   DynamoDB
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# API Gateway
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+This will point to our lambda function and will protect us from DDOS attacks
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# Secrets Manager
 
-## Learn More
+We will use this service to hold any secrets such as API keys and database names.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Lambda
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+We will have many functions to search through our database. Theses functions will be the following:
+    -   Best_Match_To_Search
+    -   Portfolios
+    -   Potfolio Positions and data
 
-### Code Splitting
+# DynamoDB
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+DynamoDb will be our main database service and will have the following tables:
+    -   Stocks
+        -   Will have all Stocks within common exchanges
+    -   User Portfolios
+        -   Will hold a reference to all user portfolios
+    -   Portfolio Data
+        -   Will hold all data related to a portfolio
+    
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
