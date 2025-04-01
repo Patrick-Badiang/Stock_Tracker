@@ -13,6 +13,8 @@ export default function PortfolioValues() {
         </Box>);
     }
 
+    const value = portfolioData.changeInValue;
+
     return (
         
             <Grid container size={12} m={1}>
@@ -30,12 +32,18 @@ export default function PortfolioValues() {
 
                 </Grid>
                 <Grid size={3}>
-                    <Typography align='start'>Total Gains/Loss</Typography>
-                    <Typography align='start' variant='body1'>
-                        ${portfolioData.changeInValue.toLocaleString()}
-                    </Typography>
+                    <Typography align="start">Total Gains/Loss</Typography>
+                    <Typography 
+                        align="start" 
+                        variant="body1"
+                        sx={{ color: value >= 0 ? "green" : "red" }}
+                    >
+                        {value >= 0 ? `$${value.toLocaleString()}` : `-$${Math.abs(value).toLocaleString()}`}
 
+                        {/* ${portfolioData.changeInValue.toLocaleString()} */}
+                    </Typography>
                 </Grid>
+
                 <Grid size={1} alignContent={'flex-end'}>
                     
                 </Grid>
