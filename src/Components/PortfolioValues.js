@@ -1,5 +1,4 @@
-import { ArrowDropDown } from "@mui/icons-material";
-import { Box, Icon, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { usePortfolio } from "../Context/PortfolioContext"; 
 
@@ -38,9 +37,7 @@ export default function PortfolioValues() {
 
                 </Grid>
                 <Grid size={1} alignContent={'flex-end'}>
-                    <Icon>
-                        <ArrowDropDown />
-                    </Icon>
+                    
                 </Grid>
             </Grid>
     );

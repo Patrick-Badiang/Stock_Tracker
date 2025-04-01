@@ -4,6 +4,8 @@ import Box from '@mui/material/Box';
 import ChangePortfolioButton from '../Components/ChangePortfolioButton';
 import PortfolioValues from '../Components/PortfolioValues';
 import { usePortfolio } from '../Context/PortfolioContext';
+import StockWatcher from '../HomePage/StockWatcher';
+import CAGRChart from './CAGRChart';
 
 const Skeleton = styled('div')(({ theme, height }) => ({
     backgroundColor: theme.palette.action.hover,
@@ -57,6 +59,17 @@ export default function Home(){
         );
     }
 
+    // const sampleData = [
+    //     { year: "2019", cagr: 5.2 },
+    //     { year: "2020", cagr: 7.8 },
+    //     { year: "2021", cagr: 6.5 },
+    //     { year: "2022", cagr: 8.1 },
+    //     { year: "2023", cagr: 9.4 },
+    //   ];
+      
+      
+      
+
     return (
       <Grid container direction='column' spacing={1}>
           <Grid size={6}>
@@ -72,6 +85,7 @@ export default function Home(){
                                 {/* Portfolio Values*/}
                                 <Grid size={12}>
                                     <PortfolioValues/>
+                                    
                                 </Grid>
                                 <Grid size= {12} m={1}>
                                     {/* <Skeleton height={705} /> */}
@@ -84,7 +98,7 @@ export default function Home(){
                                             <List key={stock.symbol}>
                                                 <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: 1 }}>
                                                     <span>{stock.symbol}</span>
-                                                    <span>${((stock.quantity || 0) * (stock.price || 0)).toLocaleString()}</span>
+                                                    <span>${((stock.quantity || 0) * (stock.bought_price || 0)).toLocaleString()}</span>
                                                     
                                                 </Box>
                                             </List>
@@ -99,10 +113,15 @@ export default function Home(){
 
                                 {/* Portfolio Values*/}
                                 <Grid size={12}>
-                                    <Skeleton height={385} />
+                                    {/* <Skeleton height={385} /> */}
+                                    <Box height={360}>
+                                        <StockWatcher unit="$" stockData={portfolioData.stock}/>
+                                    </Box>      
+                                    
                                 </Grid>
                                 <Grid size= {12}>
-                                    <Skeleton height={385} />
+                                    {/* <Skeleton height={385} /> */}
+                                    <CAGRChart dataPoints={portfolioData.performance} />
                                 </Grid>
                             </Grid>
                                 

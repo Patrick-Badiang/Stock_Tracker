@@ -1,4 +1,4 @@
-import { Box, Card, Typography } from '@mui/material';
+import { Box, Icon, Card, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import ChangePortfolioButton from '../Components/ChangePortfolioButton';
 import NewsFeed from '../Components/NewsFeed';
@@ -6,6 +6,7 @@ import StockChart from '../Components/StockChat';
 import StockWatcher from './StockWatcher';
 import PortfolioValues from '../Components/PortfolioValues';
 import { Link } from 'react-router-dom';
+import { ArrowDropDown } from "@mui/icons-material";
 
 
 export default function Home(){
@@ -18,18 +19,26 @@ export default function Home(){
                 <Grid container direction={'column'} spacing={0}>
                     {/* Button Group*/}
                     <ChangePortfolioButton/>
+
                     <Grid size={12}>
                       <Box height={10} />
                     </Grid>
 
-                    <Grid size={12}>
-                        {/* Portfolio Value */}
-                        <Link to="/positions" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <Link to="/positions" style={{ textDecoration: 'none', color: 'inherit' }}>
                         <Card sx={{height: 100, borderRadius: 2}} elevation={2}>
-                            <PortfolioValues/>
+                            <Grid container direction={'row'} size={12}>
+                                {/* Portfolio Value */}
+                                <Grid size={11.5}>
+                                    <PortfolioValues/>
+                                </Grid>
+                                <Grid size={0.5} alignContent={'flex-end'}>
+                                    <Icon>
+                                      <ArrowDropDown />
+                                  </Icon>
+                                </Grid>
+                            </Grid>
                         </Card>
-                        </Link>
-                    </Grid>
+                    </Link>
 
 
                     <Grid size={12}>
@@ -62,7 +71,7 @@ export default function Home(){
                     </Grid>
                     <Grid size={12}>
                         <Box height={390}>
-                          <StockWatcher/>
+                          <StockWatcher unit='$'/>
                         </Box>
                     </Grid>
                     <Grid size={12}>

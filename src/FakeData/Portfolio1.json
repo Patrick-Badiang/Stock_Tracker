@@ -6,33 +6,45 @@
             "symbol": "AAPL",
             "sector": "Technology",
             "quantity": 100,
-            "price": 150
+            "bought_price": 150,
+            "current_price": 170
         },
         {
             "symbol": "GOOGL",
             "sector": "Technology",
             "quantity": 50,
-            "price": 2000
+            "bought_price": 2000,
+            "current_price": 2200
         },
         {
             "symbol": "AMZN",
             "sector": "Technology",
             "quantity": 25,
-            "price": 3000
+            "bought_price": 3000,
+            "current_price": 2800
         },
         {
             "symbol": "TSLA",
             "sector": "Technology",
             "quantity": 10,
-            "price": 700
+            "bought_price": 700,
+            "current_price": 800
         },
         {
             "symbol": "ASML",
             "sector": "Chips",
             "quantity": 50,
-            "price": 300
+            "bought_price": 300,
+            "current_price": 200
         }
     ],
+    "performance": [
+        { "year": "2019", "cagr": 5.2 },
+        { "year": "2020", "cagr": 7.8 },
+        { "year": "2021", "cagr": 6.5 },
+        { "year": "2022", "cagr": 8.1 },
+        { "year": "2023", "cagr": 9.4 }
+      ],
     "cash": 50000,
     "dividends": 1000,
     "changeInValue": 20000

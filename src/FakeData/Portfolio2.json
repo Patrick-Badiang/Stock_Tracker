@@ -6,33 +6,45 @@
             "symbol": "VOO",
             "sector": "ETF",
             "quantity": 2,
-            "price": 100
+            "bought_price": 100,
+            "current_price": 95
         },
         {
             "symbol": "VGT",
             "sector": "ETF",
             "quantity": 1,
-            "price": 300
+            "bought_price": 300,
+            "current_price": 330
         },
         {
             "symbol": "VCR",
             "sector": "ETF",
             "quantity": 1,
-            "price": 200
+            "bought_price": 200,
+            "current_price": 220
         },
         {
             "symbol": "VDC",
             "sector": "ETF",
             "quantity": 1,
-            "price": 150
+            "bought_price": 150,
+            "current_price": 160
         },
         {
             "symbol": "VHT",
             "sector": "ETF",
             "quantity": 1,
-            "price": 250
+            "bought_price": 250,
+            "current_price": 230
         }
     ],
+    "performance": [
+        { "year": "2019", "cagr": 1.2 },
+        { "year": "2020", "cagr": 3.8 },
+        { "year": "2021", "cagr": 6.5 },
+        { "year": "2022", "cagr": 8.1 },
+        { "year": "2023", "cagr": 9.4 }
+      ],
     "cash": 200,
     "dividends": 3000,
     "changeInValue": -100
