@@ -31,6 +31,13 @@
             "current_price": 800
         },
         {
+            "symbol": "NVDIA",
+            "sector": "Technology",
+            "quantity": 10,
+            "bought_price": 900,
+            "current_price": 800
+        },
+        {
             "symbol": "ASML",
             "sector": "Chips",
             "quantity": 50,

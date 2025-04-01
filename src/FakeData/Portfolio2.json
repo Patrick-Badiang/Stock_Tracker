@@ -3,6 +3,20 @@
     "value": 20000,
     "stock": [
         {
+            "symbol": "DJIA",
+            "sector": "ETF",
+            "quantity": 2,
+            "bought_price": 229,
+            "current_price": 300
+        },
+        {
+            "symbol": "SCHD",
+            "sector": "ETF",
+            "quantity": 2,
+            "bought_price": 70,
+            "current_price": 140
+        },
+        {
             "symbol": "VOO",
             "sector": "ETF",
             "quantity": 2,

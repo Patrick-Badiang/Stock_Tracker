@@ -89,11 +89,11 @@ export default function Home(){
                                 </Grid>
                                 <Grid size= {12} m={1}>
                                     {/* <Skeleton height={705} /> */}
-                                    <Box height={750} >
+                                    <Box height={650} sx={{border: 1, borderColor: 'grey.300', borderRadius: 2, padding: 2}}>
                                         <Typography variant='h3' >
                                             Stocks
                                         </Typography>
-                                        <List sx={{ maxHeight: 700, overflowY: 'auto' }}>
+                                        <List sx={{ maxHeight: 700, width: "100%", overflowY: 'auto' }}>
                                         {portfolioData.stock.map((stock) => (
                                             <List key={stock.symbol}>
                                                 <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: 1 }}>
@@ -109,17 +109,17 @@ export default function Home(){
                             </Grid>
                             
                             {/* Graphs and charts*/}
-                            <Grid container size={6} direction={'column'} >
+                            <Grid container size={6} direction={'column'} alignContent={'flex-end'} >
 
                                 {/* Portfolio Values*/}
-                                <Grid size={12}>
+                                <Grid size={11} mr={2}>
                                     {/* <Skeleton height={385} /> */}
                                     <Box height={360}>
                                         <StockWatcher unit="$" stockData={portfolioData.stock}/>
                                     </Box>      
                                     
                                 </Grid>
-                                <Grid size= {12}>
+                                <Grid size= {11}>
                                     {/* <Skeleton height={385} /> */}
                                     <CAGRChart dataPoints={portfolioData.performance} />
                                 </Grid>
