@@ -7,11 +7,11 @@ What makes this app different from other portfolio trackers is our price, our vi
 
 Through making more visually appealing sections I believe KuStu Stock Tracker will be a sensational hit to new financial investors.
 
-# Architecture
+## Architecture
 
 We will use Alpha Vantage API where we can then look for AWS API calls to reduce price where we can.
 
-# Alpha Vantage Plan
+## Alpha Vantage Plan
 
 Alpha Vantage has the following price list:
     - 75 calls / min    $49.99
@@ -22,7 +22,7 @@ Alpha Vantage has the following price list:
 
 We will aim for 300 calls / min plan at $149.99 a month. We may be able to reduce pricing even more.
 
-# Alpha Vantage Use
+## Alpha Vantage Use
 
 The Alpha Vantage API has many uses but we will use it only for fundamental stock data, this includes:
     - Stock close price of the day before
@@ -35,7 +35,7 @@ The Alpha Vantage API has many uses but we will use it only for fundamental stoc
         -   EBITDA
         -   50 day SMA
 
-# AWS Use
+## AWS Use
 
 AWS will help reduce API calls to Alpha Vantage, lowering overall cost.
 
@@ -47,22 +47,22 @@ We will use the following services:
     -   Lambda
     -   DynamoDB
 
-# API Gateway
+## API Gateway
 
 This will point to our lambda function and will protect us from DDOS attacks
 
-# Secrets Manager
+## Secrets Manager
 
 We will use this service to hold any secrets such as API keys and database names.
 
-# Lambda
+### Lambda
 
 We will have many functions to search through our database. Theses functions will be the following:
     -   Best_Match_To_Search
     -   Portfolios
     -   Potfolio Positions and data
 
-# DynamoDB
+## DynamoDB
 
 DynamoDb will be our main database service and will have the following tables:
     -   Stocks
