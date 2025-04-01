@@ -59,17 +59,6 @@ export default function Home(){
         );
     }
 
-    // const sampleData = [
-    //     { year: "2019", cagr: 5.2 },
-    //     { year: "2020", cagr: 7.8 },
-    //     { year: "2021", cagr: 6.5 },
-    //     { year: "2022", cagr: 8.1 },
-    //     { year: "2023", cagr: 9.4 },
-    //   ];
-      
-      
-      
-
     return (
       <Grid container direction='column' spacing={1}>
           <Grid size={6}>
@@ -96,11 +85,33 @@ export default function Home(){
                                         <List sx={{ maxHeight: 700, width: "100%", overflowY: 'auto' }}>
                                         {portfolioData.stock.map((stock) => (
                                             <List key={stock.symbol}>
-                                                <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: 1 }}>
+                                                <Grid container size={12} direction={'row'} spacing={1} >
+                                                    <Grid size={4}>
+                                                        <Typography variant='body1' fontWeight={'bold'}>
+                                                            {stock.symbol}
+                                                        </Typography>
+                                                    </Grid>
+                                                    <Grid size={4} container direction={'column'} justifyContent={'center'}>
+                                                        <Grid item>
+                                                        <Typography variant='body'>
+                                                            ${((stock.quantity || 0) * (stock.current_price || 0)).toLocaleString()}
+                                                        </Typography>
+                                                        </Grid>
+                                                        <Grid item>
+                                                        <Typography variant='body2' fontWeight={'bold'} 
+                                                        sx={{ color: ((stock.quantity || 0) * (stock.current_price || 0)) - ((stock.quantity || 0) * (stock.bought_price || 0)) >= 0 ? "green" : "red" }}>
+                                                            (${(((stock.quantity || 0) * (stock.current_price || 0)) - ((stock.quantity || 0) * (stock.bought_price || 0))).toLocaleString()})
+                                                        </Typography>
+                                                        </Grid>
+
+                                                        
+                                                    </Grid>
+                                                </Grid>
+                                                {/* <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: 1 }}>
                                                     <span>{stock.symbol}</span>
-                                                    <span>${((stock.quantity || 0) * (stock.bought_price || 0)).toLocaleString()}</span>
-                                                    
-                                                </Box>
+                                                    <span></span>
+                                                    <span></span>
+                                                </Box> */}
                                             </List>
                                         ))}
                                         </List>
