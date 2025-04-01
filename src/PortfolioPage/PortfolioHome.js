@@ -59,6 +59,7 @@ export default function Home(){
         );
     }
 
+
     return (
       <Grid container direction='column' spacing={1}>
           <Grid size={6}>
@@ -91,6 +92,18 @@ export default function Home(){
                                                             {stock.symbol}
                                                         </Typography>
                                                     </Grid>
+                                                    <Grid size={4} container direction={'row'} justifyContent={'center'}>
+                                                        <Grid item>
+                                                        <Typography variant='body1'>
+                                                            ${stock.bought_price.toLocaleString()} 
+                                                        </Typography>
+                                                        </Grid>
+                                                        <Grid item>
+                                                        <Typography variant='body2' color={'grey.500'}>
+                                                            ({stock.quantity})
+                                                        </Typography>
+                                                        </Grid>
+                                                    </Grid>
                                                     <Grid size={4} container direction={'column'} justifyContent={'center'}>
                                                         <Grid item>
                                                         <Typography variant='body'>
@@ -100,7 +113,10 @@ export default function Home(){
                                                         <Grid item>
                                                         <Typography variant='body2' fontWeight={'bold'} 
                                                         sx={{ color: ((stock.quantity || 0) * (stock.current_price || 0)) - ((stock.quantity || 0) * (stock.bought_price || 0)) >= 0 ? "green" : "red" }}>
-                                                            (${(((stock.quantity || 0) * (stock.current_price || 0)) - ((stock.quantity || 0) * (stock.bought_price || 0))).toLocaleString()})
+                                                            {((stock.quantity || 0) * (stock.current_price || 0)) - ((stock.quantity || 0) * (stock.bought_price || 0)) >= 0 ? "+" : "-"}
+                                                            ${Math.abs(((stock.quantity || 0) * (stock.current_price || 0)) - ((stock.quantity || 0) * (stock.bought_price || 0))).toLocaleString()}
+                                                            {/* Percentage change*/}
+                                                            ({(Math.abs((((stock.current_price || 0) - ( stock.bought_price || 0)) /  (stock.bought_price || 0)) * 100)).toFixed(2)}%)
                                                         </Typography>
                                                         </Grid>
 
