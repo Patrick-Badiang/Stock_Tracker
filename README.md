@@ -42,10 +42,10 @@ AWS will help reduce API calls to Alpha Vantage, lowering overall cost.
 The main contention of high API calls will be from searching and this can be solved by having our own 'best match' algorithm through our database.
 
 We will use the following services:
-    -   API Gateway
-    -   Secrets Manager
-    -   Lambda
-    -   DynamoDB
+    *   API Gateway
+    *  Secrets Manager
+    *  Lambda
+    *   DynamoDB
 
 ## API Gateway
 
