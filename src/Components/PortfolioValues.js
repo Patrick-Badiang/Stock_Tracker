@@ -38,7 +38,7 @@ export default function PortfolioValues() {
                         variant="body1"
                         sx={{ color: value >= 0 ? "green" : "red" }}
                     >
-                        {value >= 0 ? `$${value.toLocaleString()}` : `-$${Math.abs(value).toLocaleString()}`}
+                        {value >= 0 ? `+$${value.toLocaleString()}` : `-$${Math.abs(value).toLocaleString()}`}
 
                         {/* ${portfolioData.changeInValue.toLocaleString()} */}
                     </Typography>

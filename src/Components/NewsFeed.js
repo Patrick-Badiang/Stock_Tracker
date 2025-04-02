@@ -1,8 +1,8 @@
 import { useContext, useEffect } from "react";
 
 import axios from "axios";
-import { List, ListItem } from "@mui/material";
-
+import { Box, List, ListItem, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import { NewsContext } from "../Context/NewsContext";
 
 // const Skeleton = styled("div")(({ theme, height }) => ({
@@ -55,10 +55,27 @@ export default function NewsFeed() {
   return (
     <List sx={{ width: "100%", height: 600, overflowY: "auto" }}>
       {news.map((article, index) => (
-        <ListItem key={index} sx={{ width: "100%", height: 100 }}>
-          <a href={article.url} target="_blank" rel="noopener noreferrer">
-            {article.title} - {article.company}
-          </a>
+        <ListItem key={index} sx={{ width: "100%", height: 130, mb: 3 }}>
+           {/* <a href={article.url} target="_blank" rel="noopener noreferrer"> */}
+          <Box sx={{ width: "100%", height: "100%", border: "1px solid black", borderRadius: 2, padding: 2, overflow: "hidden", overflowY: "auto" }}>
+           
+             
+              <Grid container size={12} direction={'column'} spacing={1}>
+                <Grid item xs={12} md={6}>
+                  <Typography variant="h5" align="start">
+                    {article.title} - {article.company} 
+                  </Typography>
+                  
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  
+                  <Typography align="start" variant="body2">
+                    {article.description}
+                  </Typography>
+                </Grid>
+              </Grid>
+          </Box>
+          {/* </a> */}
         </ListItem>
       ))}
     </List>

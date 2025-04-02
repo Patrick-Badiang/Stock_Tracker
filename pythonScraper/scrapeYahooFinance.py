@@ -26,15 +26,20 @@ def scrape_yahoo_finance():
     news_list = []
     for article in articles[:30]:  # Limit to 10 articles
         title_tag = article.find("h3")
+        description_tag = article.find("p")
         link_tag = article.find("a", class_="subtle-link")
         ticker_tag = article.find("a", {"data-testid": "ticker-container"})  # Find stock ticker (if available)
+        img_tag = article.find("img", class_="C(black) Fz(16px) Fw(600) Fz(14px)--mobile Fw(400)--mobile")  # Find image (if available)
 
         if title_tag and link_tag:
             title = title_tag.text.strip()
             link = "https://finance.yahoo.com" + link_tag["href"] if link_tag["href"].startswith("/") else link_tag["href"]
             company = ticker_tag.text.strip() if ticker_tag else "General Market"
+            description = description_tag.text.strip() if description_tag else ""
+            img = img_tag["src"] if img_tag else None
 
-            news_list.append({"title": title, "company": company, "url": link})
+
+            news_list.append({"title": title, "company": company, "url": link, "description": description, "image": img})
 
     return json.dumps(news_list, indent=2)
 
@@ -55,12 +60,14 @@ def scrape_stock_news(ticker):
     for article in articles[:30]:
         title_tag = article.find("h3")
         link_tag = article.find("a")
+        description_tag = article.find("p")
         
         if title_tag and link_tag:
             title = title_tag.text.strip()
             link = "https://finance.yahoo.com" + link_tag["href"] if link_tag["href"].startswith("/") else link_tag["href"]
-            
-            news_list.append({"title": title, "url": link})
+            description = description_tag.text.strip() if description_tag else ""
+
+            news_list.append({"title": title, "url": link, "description": description})
 
     return json.dumps(news_list, indent=2)
 
