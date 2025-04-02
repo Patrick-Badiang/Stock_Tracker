@@ -3,6 +3,8 @@ import Grid from '@mui/material/Grid2';
 import SearchBar from '../Components/SearchBar';
 import StockChart from '../Components/StockChat';
 
+import stockData from '../FakeData/CompanyOverview.json';
+
 const Skeleton = styled('div')(({ theme, height }) => ({
     backgroundColor: theme.palette.action.hover,
     borderRadius: theme.shape.borderRadius,
@@ -14,8 +16,6 @@ const Skeleton = styled('div')(({ theme, height }) => ({
   }));
 
 export default function home(){
-
-
 
     const handleSearch = (value) => { //Take the value and call stock data API 
         console.log("Search Value: ", value);
@@ -33,7 +33,8 @@ export default function home(){
             <Grid size={4} offset={{ md: 3.7 }}>
                 {/* <Skeleton height={100} /> */}
                 <Box height={100} sx = {{textAlign: 'center'}}>
-                    <Typography variant={'h4'}>IBM</Typography>
+                    <Typography variant={'h4'}>{stockData.Symbol}</Typography>
+                    <Typography variant={'body1'}>({stockData.Name})</Typography>
                     <Typography variant={'h4'}>$236.00</Typography>
                     <Typography variant={'body1'}>0.00%</Typography>
                 </Box>
@@ -53,46 +54,46 @@ export default function home(){
                                 <Grid container size={6} direction={'column'} spacing={1}>
                                     <Grid size={12}>
                                         <Typography variant={'body1'} align='start' mt={2}>
-                                        Market Cap: $1.00B</Typography>
+                                        Market Cap: ${stockData.MarketCapitalization}</Typography>
                                     </Grid>
                                     <Grid size={12}>
                                         <Typography variant={'body1'} align='start' mt={2}>
-                                        PE Ratio: 0.00</Typography>
+                                        Forward PE Ratio: {stockData.ForwardPE}</Typography>
                                     </Grid>
                                     <Grid size={12}>
                                         <Typography variant={'body1'} align='start' mt={2}>
-                                        Dividend Yield: 0.00%</Typography>
+                                        Dividend Yield: {stockData.DividendYield}</Typography>
                                     </Grid>
                                     <Grid size={12}>
                                         <Typography variant={'body1'} align='start' mt={2}>
-                                        Market Cap: $1.00B</Typography>
+                                        EBITDA: {stockData.EBITDA}</Typography>
                                     </Grid>
                                     <Grid size={12}>
                                         <Typography variant={'body1'} align='start' mt={2}>
-                                        Market Cap: $1.00B</Typography>
+                                        Dividend per Share: {stockData.DividendPerShare}</Typography>
                                     </Grid>
 
                                 </Grid>
                                 <Grid container size={6} direction={'column'} spacing={1}>
                                     <Grid size={12}>
                                         <Typography variant={'body1'} align='start' mt={2}>
-                                        Market Cap: $1.00B</Typography>
+                                        Revenue TTM: {stockData.RevenuePerShareTTM}</Typography>
                                     </Grid>
                                     <Grid size={12}>
                                         <Typography variant={'body1'} align='start' mt={2}>
-                                        PE Ratio: 0.00</Typography>
+                                        Profit Margin: {stockData.ProfitMargin}</Typography>
                                     </Grid>
                                     <Grid size={12}>
                                         <Typography variant={'body1'} align='start' mt={2}>
-                                        Dividend Yield: 0.00%</Typography>
+                                        50 Day MA : ${stockData["50DayMovingAverage"]}</Typography>
                                     </Grid>
                                     <Grid size={12}>
                                         <Typography variant={'body1'} align='start' mt={2}>
-                                        Market Cap: $1.00B</Typography>
+                                        52 Week High/Low: ${stockData["52WeekHigh"]}/${stockData["52WeekLow"]}</Typography>
                                     </Grid>
                                     <Grid size={12}>
                                         <Typography variant={'body1'} align='start' mt={2}>
-                                        Market Cap: $1.00B</Typography>
+                                        Shares Outstanding: {stockData.SharesOutstanding}</Typography>
                                     </Grid>
 
                                 </Grid>

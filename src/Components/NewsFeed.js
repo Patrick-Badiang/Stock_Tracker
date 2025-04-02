@@ -61,7 +61,7 @@ export default function NewsFeed() {
           target="_blank" 
           rel="noopener noreferrer">
            
-          <Box  sx={{ width: "100%", height: "100%", border: "1px solid black", borderRadius: 2, padding: 2, overflow: "hidden", overflowY: "auto" }}>
+          <Box  sx={{ width: "100%", height: "100%", border: "1px solid black", borderRadius: 2, padding: 2, overflow: "hidden" }}>
            
              
               <Grid container size={12} direction={'column'} spacing={1}>
