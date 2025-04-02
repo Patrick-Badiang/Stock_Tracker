@@ -8,7 +8,7 @@ import { Search } from "@mui/icons-material";
 import stockData from "../Database/stock_list.json"; // Ensure this JSON file is stored in your project
 
 
-export default function SearchBar() {
+export default function SearchBar({ onSearch }) {
     const [query, setQuery] = useState("");
     const [results, setResults] = useState([]);
     const [showResults, setShowResults] = useState(false);
@@ -26,6 +26,7 @@ export default function SearchBar() {
         // Perform any action with the selected stock symbol
         console.log("Selected stock symbol:", symbol);
         // For example, you can redirect to another page or fetch stock data
+        onSearch(symbol); // Call the parent function with the selected symbol
     }
 
     useEffect(() => {

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import {Box, Toolbar, List, CssBaseline, Typography, Divider, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText, Avatar} from '@mui/material';
+import {Box, List, CssBaseline, Divider, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText, Avatar} from '@mui/material';
 
 import MuiDrawer from '@mui/material/Drawer';
 
@@ -10,14 +10,14 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 import HomeIcon from '@mui/icons-material/Home';
 
-import { Search, AttachMoney, AlignVerticalBottom, Feed, Phone, Person } from '@mui/icons-material';
+import { Search, AttachMoney, AlignVerticalBottom, Feed, Phone } from '@mui/icons-material';
 
 import HomeHome from './HomePage/home';
 import SearchHome from './SearchPage/home';
 import DividendsHome from './DividendsPage/home';
 import PortfolioHome from './PortfolioPage/PortfolioHome';
 import EarningsHome from './EarningsPage/home';
-import NewsHome from './NewsPage/home';
+import NewsHome from './NewsPage/News_Home';
 
 import MyLogo from './Logo.png';
 
@@ -69,7 +69,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 }));
 
 export default function StockTracker() {
-  const theme = useTheme();
+  // const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerClose = () => {

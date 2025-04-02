@@ -1,51 +1,48 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { List, ListItem, styled } from "@mui/material";
+import { useContext, useEffect } from "react";
 
-const Skeleton = styled("div")(({ theme, height }) => ({
-  backgroundColor: theme.palette.action.hover,
-  borderRadius: theme.shape.borderRadius,
-  borderColor: "black",
-  borderStyle: "solid",
-  borderWidth: "1px",
-  height,
-  content: '" "',
-}));
+import axios from "axios";
+import { List, ListItem } from "@mui/material";
+
+import { NewsContext } from "../Context/NewsContext";
+
+// const Skeleton = styled("div")(({ theme, height }) => ({
+//   backgroundColor: theme.palette.action.hover,
+//   borderRadius: theme.shape.borderRadius,
+//   borderColor: "black",
+//   borderStyle: "solid",
+//   borderWidth: "1px",
+//   height,
+//   content: '" "',
+// }));
 
 export default function NewsFeed() {
-  const [news, setNews] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { news, setNews, loading, setLoading, error, setError } = useContext(NewsContext);
 
-  useEffect(() => {
-    axios
-      .get("http://127.0.0.1:3001/api/news")
-      .then((response) => {
-        console.log("Axios response:", response);
-  
-        let parsedData;
-  
-        try {
-          parsedData = JSON.parse(response.data); // ✅ Convert JSON string to array
-        } catch (error) {
-          throw new Error("Invalid JSON format received from API");
-        }
-  
-        if (Array.isArray(parsedData)) {
-          setNews(parsedData); // ✅ Now `news` is an array
-        } else {
-          throw new Error("Response is not an array");
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching news:", error);
-        setError("Failed to load news");
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
-  
+    useEffect(() => {
+        setLoading(true);
+        axios
+            .get("http://127.0.0.1:3001/api/news")
+            .then((response) => {
+                try {
+                    const parsedData = JSON.parse(response.data);
+                    if (Array.isArray(parsedData)) {
+                        setNews(parsedData);
+                    } else {
+                        throw new Error("Response is not an array");
+                    }
+                } catch (error) {
+                    throw new Error("Invalid JSON format received from API");
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching news:", error);
+                setError("Failed to load news");
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    }, [setNews, setLoading, setError]);  // Dependencies to avoid unnecessary re-fetching
+
 
   if (loading) {
     return <p>Loading news...</p>;
