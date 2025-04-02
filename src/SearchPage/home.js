@@ -4,6 +4,7 @@ import SearchBar from '../Components/SearchBar';
 import StockChart from '../Components/StockChat';
 
 import stockData from '../FakeData/CompanyOverview.json';
+import FundamentalText from '../Components/Fundamental_Text';
 
 const Skeleton = styled('div')(({ theme, height }) => ({
     backgroundColor: theme.palette.action.hover,
@@ -50,52 +51,21 @@ export default function home(){
                     <Grid size={5} mt = {8}>
                         
                         {/* <Box height={300} sx={{borderRadius: 2, borderColor: 'black', borderStyle: 'solid', borderWidth: '1px'}}> */}
-                            <Grid container spacing={1} size={12} direction={'row'}>
+                            <Grid container spacing={2} size={12} direction={'row'} alignContent={'center'}>
                                 <Grid container size={6} direction={'column'} spacing={1}>
-                                    <Grid size={12}>
-                                        <Typography variant={'body1'} align='start' mt={2}>
-                                        Market Cap: ${stockData.MarketCapitalization}</Typography>
-                                    </Grid>
-                                    <Grid size={12}>
-                                        <Typography variant={'body1'} align='start' mt={2}>
-                                        Forward PE Ratio: {stockData.ForwardPE}</Typography>
-                                    </Grid>
-                                    <Grid size={12}>
-                                        <Typography variant={'body1'} align='start' mt={2}>
-                                        Dividend Yield: {stockData.DividendYield}</Typography>
-                                    </Grid>
-                                    <Grid size={12}>
-                                        <Typography variant={'body1'} align='start' mt={2}>
-                                        EBITDA: {stockData.EBITDA}</Typography>
-                                    </Grid>
-                                    <Grid size={12}>
-                                        <Typography variant={'body1'} align='start' mt={2}>
-                                        Dividend per Share: {stockData.DividendPerShare}</Typography>
-                                    </Grid>
-
+                                    <FundamentalText label="Market Cap" value={`$${stockData.MarketCapitalization}`} />
+                                    <FundamentalText label="Forward PE Ratio" value={stockData.ForwardPE} />
+                                    <FundamentalText label="Dividend Yield" value={stockData.DividendYield} />
+                                    <FundamentalText label="EBITDA" value={stockData.EBITDA} />
+                                    <FundamentalText label="Dividend per Share" value={stockData.DividendPerShare} />
                                 </Grid>
-                                <Grid container size={6} direction={'column'} spacing={1}>
-                                    <Grid size={12}>
-                                        <Typography variant={'body1'} align='start' mt={2}>
-                                        Revenue TTM: {stockData.RevenuePerShareTTM}</Typography>
-                                    </Grid>
-                                    <Grid size={12}>
-                                        <Typography variant={'body1'} align='start' mt={2}>
-                                        Profit Margin: {stockData.ProfitMargin}</Typography>
-                                    </Grid>
-                                    <Grid size={12}>
-                                        <Typography variant={'body1'} align='start' mt={2}>
-                                        50 Day MA : ${stockData["50DayMovingAverage"]}</Typography>
-                                    </Grid>
-                                    <Grid size={12}>
-                                        <Typography variant={'body1'} align='start' mt={2}>
-                                        52 Week High/Low: ${stockData["52WeekHigh"]}/${stockData["52WeekLow"]}</Typography>
-                                    </Grid>
-                                    <Grid size={12}>
-                                        <Typography variant={'body1'} align='start' mt={2}>
-                                        Shares Outstanding: {stockData.SharesOutstanding}</Typography>
-                                    </Grid>
 
+                                <Grid container size={6} direction={'column'} spacing={1}>
+                                    <FundamentalText label="Revenue TTM" value={stockData.RevenuePerShareTTM} />
+                                    <FundamentalText label="Profit Margin" value={stockData.ProfitMargin} />
+                                    <FundamentalText label="50 Day MA" value={`$${stockData["50DayMovingAverage"]}`} />
+                                    <FundamentalText label="52 Week High/Low" value={`$${stockData["52WeekHigh"]}/$${stockData["52WeekLow"]}`} />
+                                    <FundamentalText label="Shares Outstanding" value={stockData.SharesOutstanding} />
                                 </Grid>
 
                             
