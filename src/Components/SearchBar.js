@@ -7,29 +7,6 @@ import { Search } from "@mui/icons-material";
 
 import stockData from "../Database/stock_list.json"; // Ensure this JSON file is stored in your project
 
-// Function to perform "best match" search
-function bestMatchSearch(query, topN = 5) {
-    if (!query) return [];
-
-    query = query.toUpperCase();
-
-    // Step 1: Exact match
-    const exactMatches = stockData.filter(stock => stock.Symbol === query);
-
-    // Step 2: Prefix match (stocks where the symbol starts with the query)
-    const prefixMatches = stockData.filter(stock => stock.Symbol.startsWith(query));
-
-    // Step 3: Fuzzy match (stocks with names that contain the query)
-    const fuzzyMatches = stockData.filter(stock => stock.Name.toUpperCase().includes(query));
-
-    // Combine results while removing duplicates (Exact > Prefix > Fuzzy)
-    const uniqueResults = new Map();
-    [...exactMatches, ...prefixMatches, ...fuzzyMatches].forEach(stock => {
-        uniqueResults.set(stock.Symbol, stock);
-    });
-
-    return Array.from(uniqueResults.values()).slice(0, topN);
-}
 
 export default function SearchBar() {
     const [query, setQuery] = useState("");
@@ -87,4 +64,29 @@ export default function SearchBar() {
             )}
         </div>
     );
+}
+
+
+// Function to perform "best match" search
+function bestMatchSearch(query, topN = 5) {
+    if (!query) return [];
+
+    query = query.toUpperCase();
+
+    // Step 1: Exact match
+    const exactMatches = stockData.filter(stock => stock.Symbol === query);
+
+    // Step 2: Prefix match (stocks where the symbol starts with the query)
+    const prefixMatches = stockData.filter(stock => stock.Symbol.startsWith(query));
+
+    // Step 3: Fuzzy match (stocks with names that contain the query)
+    const fuzzyMatches = stockData.filter(stock => stock.Name.toUpperCase().includes(query));
+
+    // Combine results while removing duplicates (Exact > Prefix > Fuzzy)
+    const uniqueResults = new Map();
+    [...exactMatches, ...prefixMatches, ...fuzzyMatches].forEach(stock => {
+        uniqueResults.set(stock.Symbol, stock);
+    });
+
+    return Array.from(uniqueResults.values()).slice(0, topN);
 }
