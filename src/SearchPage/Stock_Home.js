@@ -31,17 +31,93 @@ const formatNumber = (number) => {
 
 export default function Stock_Home(){
     const [revenueData, setRevenueData] = useState(null);
+    const [epsData, setEPSData] = useState(null);
+    
+    const parseRevenueData = (data) => {
+        if (!data || !data.units || !data.units.USD) return null;
+    
+        // Extract annual (10-K) revenue
+        const annualRevenuesValues = data.units.USD.filter(entry => entry.form === "10-K" && entry.frame && !entry.frame.includes("Q"));
+        
+        // Extract quarterly (10-Q) revenue
+        const quarterlyRevenues = data.units.USD.filter(entry => entry.form === "10-Q" && entry.frame);
+    
+        // Sort by year (frame = CYYYYY)
+        annualRevenuesValues.sort((a, b) => parseInt(a.frame.slice(2)) - parseInt(b.frame.slice(2)));
+        quarterlyRevenues.sort((a, b) => parseInt(a.frame.slice(2, 6)) - parseInt(b.frame.slice(2, 6)));
+        
+        const labels = annualRevenuesValues.map(entry => entry.frame.slice(2));
+        const annualRevenues = annualRevenuesValues.map(entry => entry.val / 1e9);
+        return { labels, annualRevenues, quarterlyRevenues };
+    };
 
-    const handleSearch = async (value) => { //Take the value and call stock data API
-        console.log("Search Value: ", value);
+    const parseEPSData = (data) => {
+        if (!data || !data.units || !data.units["USD/shares"]) {
+            console.warn("Invalid EPS Data:", data);
+            return null;
+        }
+    
+        // Extract EPS data entries
+        const epsEntries = data.units["USD/shares"];
+    
+        // Filter for annual EPS data from 10-K or 10-K/A filings with FY designation
+        const annualEPSRaw = epsEntries.filter(entry => 
+            (entry.form === "10-K" || entry.form === "10-K/A") && entry.fp === "FY"
+        );
+    
+        // Organize by fiscal year and select the latest reported value
+        const annualEPSMap = {};
+    
+        annualEPSRaw.forEach(entry => {
+            const fy = parseInt(entry.fy);
+            if (!annualEPSMap[fy] || new Date(entry.filed) > new Date(annualEPSMap[fy].filed)) {
+                annualEPSMap[fy] = { val: entry.val, filed: entry.filed };
+            }
+        });
+    
+        // Convert to an array and sort by fiscal year
+        const annualEPSValue = Object.entries(annualEPSMap)
+            .map(([fy, { val }]) => ({ fy: parseInt(fy), eps: val }))
+            .sort((a, b) => a.fy - b.fy);
+    
+        // Prepare labels and values for annual EPS
+        const labels = annualEPSValue.map(entry => entry.fy.toString());
+        const annualEPS = annualEPSValue.map(entry => entry.eps);
+    
+        // Filter and sort quarterly EPS data
+        const quarterlyEPS = epsEntries.filter(entry => entry.form === "10-Q" && entry.frame)
+            .sort((a, b) => parseInt(a.frame.slice(2, 6)) - parseInt(b.frame.slice(2, 6)));
+    
+        return { labels, annualEPS, quarterlyEPS };
+    };
+    
 
+    const handleSearch = async (value) => {
+        // console.log("Search Value: ", value);
+    
         try {
-            const response = await axios.get(`http://127.0.0.1:3001/stock/revenue?ticker=${value}`); // Replace with your API URL
-            setRevenueData(response.data);
-          } catch (error) {
-            console.error("Error fetching revenue data:", error);
-          }
-    }
+            const response = await axios.get(`http://127.0.0.1:3001/stock/revenue?ticker=${value}`);
+            const epsResponse = await axios.get(`http://127.0.0.1:3001/stock/eps?ticker=${value}`);
+    
+            // Parse Revenue Data
+            const parsedRevenueData = parseRevenueData(response.data);
+            
+            // Parse EPS Data
+            const parsedEPSData = parseEPSData(epsResponse.data);
+    
+            // Set State
+            // console.log("Parsed Revenue Data:", parsedRevenueData);
+            setRevenueData(parsedRevenueData);
+            setEPSData(parsedEPSData);
+    
+            console.log("EPS Data:", parsedEPSData);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+        // console.log("Revenue Data:", revenueData);
+
+    };
+    
 
     
 
@@ -114,34 +190,40 @@ export default function Stock_Home(){
                 
                 <Grid container size={4}>
                     {revenueData ? <VisualizedChart 
-                            revenueData={revenueData} 
+                            unitLabel = "Revenue (Billion USD)"
+                            labels={revenueData.labels}
+                            annualRevenues={revenueData.annualRevenues} 
+                            quarterlyRevenues={revenueData.quarterlyRevenues}
                             title='Revene' 
                             color = "rgba(75, 192, 192, 0.6)"/> : <p>Loading...</p>}
                 </Grid>
                 <Grid container size={4}>
-                    {revenueData ? <VisualizedChart 
-                            revenueData={revenueData} 
+                    {epsData ? <VisualizedChart 
+                            unitLabel = "EPS (USD)"
+                            labels={epsData.labels}
+                            annualRevenues={epsData.annualEPS} 
+                            quarterlyRevenues={epsData.quarterlyEPS}
                             title='EPS'   
                             color = "rgba(186, 175, 57, 0.6)"/> : <p>Loading...</p>}
                 </Grid>
-                <Grid container size={4}>
+                {/* <Grid container size={4}>
                     {revenueData ? <VisualizedChart 
-                            revenueData={revenueData} 
+                            annualRevenues={revenueData.annualRevenues} 
                             title='Shares Outstanding'    
                             color = "rgba(56, 41, 193, 0.6)"/> : <p>Loading...</p>}
                 </Grid>
                 <Grid container size={4}>
                     {revenueData ? <VisualizedChart 
-                            revenueData={revenueData} 
+                            annualRevenues={revenueData} 
                             title='Operating Margin'      
                             color = "rgba(213, 235, 68, 0.6)"/> : <p>Loading...</p>}
                 </Grid>
                 <Grid container size={4}>
                     {revenueData ? <VisualizedChart r
-                            evenueData={revenueData} 
+                            annualRevenues={revenueData} 
                             title='Expenses'
-                            color = "rgba(195, 125, 67, 0.6)"/> : <p>Loading...</p>}
-                </Grid>
+                            color = "rgba(210, 127, 59, 0.6)"/> : <p>Loading...</p>}
+                </Grid> */}
 
                 
             </Grid>

@@ -102,6 +102,18 @@ def get_revenue_from_sec(cik):
     
     return response.json()
 
+def get_eps_from_sec(cik):
+    url = f"https://data.sec.gov/api/xbrl/companyconcept/CIK{cik}/us-gaap/EarningsPerShareDiluted.json"
+    headers = {
+        "User-Agent": "Patrick Badiang (patrick.vyn.llanto@gmail.com)"
+    }
+    
+    response = requests.get(url, headers=headers)
+    if response.status_code != 200:
+        return {"error": "Failed to fetch revenue data from SEC"}
+    
+    return response.json()
+
 
 @app.route("/api/news", methods=["GET"])
 def get_news():
@@ -137,6 +149,19 @@ def get_revenue():
     
     revenue_data = get_revenue_from_sec(cik)
     return jsonify(revenue_data)
+
+@app.route("/stock/eps", methods=["GET"])
+def get_eps():
+    ticker = request.args.get("ticker")
+    if not ticker:
+        return jsonify({"error": "Ticker symbol is required"}), 400
+    
+    cik = get_cik_from_ticker(ticker.upper())
+    if isinstance(cik, dict) and "error" in cik:
+        return jsonify(cik), 404
+    
+    eps_data = get_eps_from_sec(cik)
+    return jsonify(eps_data)
 
 if __name__ == "__main__":
     app.run( port = 3001)

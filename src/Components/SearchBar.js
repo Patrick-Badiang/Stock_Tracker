@@ -24,7 +24,7 @@ export default function SearchBar({ onSearch }) {
         setResults([]);
         setShowResults(false);
         // Perform any action with the selected stock symbol
-        console.log("Selected stock symbol:", symbol);
+        // console.log("Selected stock symbol:", symbol);
         // For example, you can redirect to another page or fetch stock data
         onSearch(symbol); // Call the parent function with the selected symbol
     }
