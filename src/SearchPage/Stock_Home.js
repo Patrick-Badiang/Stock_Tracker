@@ -9,6 +9,8 @@ import { useEffect, useState } from 'react';
 import axios from "axios";
 import VisualizedChart from '../Components/VisualizedChart';
 
+import stockList from '../Database/stock_list.json';
+
 const Skeleton = styled('div')(({ theme, height }) => ({
     backgroundColor: theme.palette.action.hover,
     borderRadius: theme.shape.borderRadius,
@@ -32,7 +34,8 @@ const formatNumber = (number) => {
 export default function Stock_Home(){
     const [revenueData, setRevenueData] = useState(null);
     const [epsData, setEPSData] = useState(null);
-    
+    const [stockSymbol, setStockSymbol] = useState(null);
+    const [stockName, setStockName] = useState(null);
     const parseRevenueData = (data) => {
         if (!data || !data.units || !data.units.USD) return null;
     
@@ -94,7 +97,20 @@ export default function Stock_Home(){
 
     const handleSearch = async (value) => {
         // console.log("Search Value: ", value);
-    
+
+        // Check if the value is in the stockList
+        const stock = stockList.find(stock => stock.Symbol === value);
+        // stockData.filter(stock => stock.Symbol === query);
+        if (!stock) {
+            console.error("Stock not found in the list");
+            return;
+        }
+
+        // console.log("Stock name:", stock.Name);
+
+        setStockSymbol(value);
+        setStockName(stock.Name);
+        
         try {
             const response = await axios.get(`http://127.0.0.1:3001/stock/revenue?ticker=${value}`);
             const epsResponse = await axios.get(`http://127.0.0.1:3001/stock/eps?ticker=${value}`);
@@ -109,15 +125,25 @@ export default function Stock_Home(){
             // console.log("Parsed Revenue Data:", parsedRevenueData);
             setRevenueData(parsedRevenueData);
             setEPSData(parsedEPSData);
+            
     
             console.log("EPS Data:", parsedEPSData);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
-        // console.log("Revenue Data:", revenueData);
 
     };
     
+    if (!stockSymbol || !stockName) {
+        return (
+            <Grid container spacing={1} alignContent={'center'}>
+                <Grid size={5} />
+                <Grid size={12}>
+                    <SearchBar onSearch={handleSearch}/>
+                </Grid>
+            </Grid>
+        );
+    }
 
     
 
@@ -133,8 +159,8 @@ export default function Stock_Home(){
             <Grid size={4} offset={{ md: 3.7 }}>
                 {/* <Skeleton height={100} /> */}
                 <Box height={100} sx = {{textAlign: 'center'}}>
-                    <Typography variant={'h4'}>{stockData.Symbol}</Typography>
-                    <Typography variant={'body1'}>({stockData.Name})</Typography>
+                    <Typography variant={'h4'}>{stockSymbol}</Typography>
+                    <Typography variant={'body1'}>({stockName})</Typography>
                     <Typography variant={'h4'}>$236.00</Typography>
                     <Typography variant={'body1'}>0.00%</Typography>
                 </Box>
