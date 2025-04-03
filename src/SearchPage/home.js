@@ -16,9 +16,19 @@ const Skeleton = styled('div')(({ theme, height }) => ({
     content: '" "',
   }));
 
+// Function to format large numbers (Billions or Trillions)
+const formatNumber = (number) => {
+    if (number >= 1_000_000_000_000) {
+        return `${(number / 1_000_000_000_000).toFixed(1)}T`;
+    } else if (number >= 1_000_000_000) {
+        return `${(number / 1_000_000_000).toFixed(1)}B`;
+    }
+    return number; // Return as is if less than a billion (you might want to format differently)
+};
+
 export default function home(){
 
-    const handleSearch = (value) => { //Take the value and call stock data API 
+    const handleSearch = (value) => { //Take the value and call stock data API
         console.log("Search Value: ", value);
     }
 
@@ -40,7 +50,7 @@ export default function home(){
                     <Typography variant={'body1'}>0.00%</Typography>
                 </Box>
             </Grid>
-            
+
 
             <Grid size={12} mt={4} >
                 {/* Stock Graph and other Values*/}
@@ -49,37 +59,34 @@ export default function home(){
                         <StockChart />
                     </Grid>
                     <Grid size={5} mt = {8}>
-                        
+
                         {/* <Box height={300} sx={{borderRadius: 2, borderColor: 'black', borderStyle: 'solid', borderWidth: '1px'}}> */}
                             <Grid container spacing={2} size={12} direction={'row'} alignContent={'center'}>
                                 <Grid container size={6} direction={'column'} spacing={1}>
-                                    <FundamentalText label="Market Cap" value={`$${stockData.MarketCapitalization}`} />
+                                    <FundamentalText label="Market Cap" value={`$${formatNumber(stockData.MarketCapitalization)}`} />
                                     <FundamentalText label="Forward PE Ratio" value={stockData.ForwardPE} />
-                                    <FundamentalText label="Dividend Yield" value={stockData.DividendYield} />
-                                    <FundamentalText label="EBITDA" value={stockData.EBITDA} />
-                                    <FundamentalText label="Dividend per Share" value={stockData.DividendPerShare} />
+                                    <FundamentalText label="Dividend Yield" value={`${(stockData.DividendYield * 100).toFixed(1)}%`} />
+                                    <FundamentalText label="EV To EBITDA" value={stockData.EVToEBITDA} />
+                                    <FundamentalText label="Dividend per Share" value={`$${stockData.DividendPerShare}`} />
                                 </Grid>
 
                                 <Grid container size={6} direction={'column'} spacing={1}>
-                                    <FundamentalText label="Revenue TTM" value={stockData.RevenuePerShareTTM} />
-                                    <FundamentalText label="Profit Margin" value={stockData.ProfitMargin} />
-                                    <FundamentalText label="50 Day MA" value={`$${stockData["50DayMovingAverage"]}`} />
-                                    <FundamentalText label="52 Week High/Low" value={`$${stockData["52WeekHigh"]}/$${stockData["52WeekLow"]}`} />
-                                    <FundamentalText label="Shares Outstanding" value={stockData.SharesOutstanding} />
+                                    <FundamentalText label="Revenue TTM" value={`$${formatNumber(stockData.RevenueTTM)}`} />
+                                    <FundamentalText label="Profit Margin" value={`${(stockData.ProfitMargin * 100).toFixed(1)}%`} />
+                                    <FundamentalText label="Operating Margin" value={`${(stockData.OperatingMarginTTM * 100).toFixed(1)}%`} />
+                                    <FundamentalText label="50 Day MA" value={`$${parseFloat(stockData["50DayMovingAverage"]).toFixed(1)}`} />
+                                    <FundamentalText label="52 Week High/Low" value={`$${parseFloat(stockData["52WeekHigh"]).toFixed(1)}/$${parseFloat(stockData["52WeekLow"]).toFixed(1)}`} />
                                 </Grid>
 
-                            
-                            
-                           
-                            
+
                             </Grid>
                         {/* </Box> */}
                     </Grid>
                 </Grid>
-               
-                
-                
-                
+
+
+
+
             </Grid>
 
             {/* Fundamental Data*/}
@@ -91,10 +98,10 @@ export default function home(){
                 <Grid size={12} mt={2}>
                     <Skeleton height={1} />
                 </Grid>
-                        
+
             </Grid>
 
-            
+
     </Grid>
     );
 }

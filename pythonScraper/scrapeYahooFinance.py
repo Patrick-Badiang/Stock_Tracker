@@ -71,6 +71,25 @@ def scrape_stock_news(ticker):
 
     return json.dumps(news_list, indent=2)
 
+def get_cik_from_ticker(ticker):
+    url = "https://www.sec.gov/files/company_tickers.json"
+    headers = {
+        "User-Agent": "Your Name (your_email@example.com)"
+    }
+    
+    response = requests.get(url, headers=headers)
+    if response.status_code != 200:
+        return {"error": "Failed to fetch company tickers"}
+    
+    data = response.json()
+    
+    for company in data.values():
+        if company["ticker"].lower() == ticker.lower():
+            cik = str(company["cik_str"]).zfill(10)  # Convert to 10-digit CIK
+            return cik
+
+    return {"error": "Ticker not found"}
+
 @app.route("/api/news", methods=["GET"])
 def get_news():
     return jsonify(scrape_yahoo_finance())
@@ -81,6 +100,17 @@ def get_stock_news():
     if not ticker:
         return jsonify({"error": "Ticker symbol is required"}), 400
     return jsonify(scrape_stock_news(ticker.upper()))
+
+@app.route("/stock/cik", methods=["GET"])
+def get_cik():
+    ticker = request.args.get("ticker")
+    if not ticker:
+        return jsonify({"error": "Ticker symbol is required"}), 400
+    cik = get_cik_from_ticker(ticker.upper())
+    if cik:
+        return jsonify({"CIK": cik})
+    else:
+        return jsonify({"error": "CIK not found"}), 404
 
 if __name__ == "__main__":
     app.run( port = 3001)
