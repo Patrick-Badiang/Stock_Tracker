@@ -93,7 +93,7 @@ def get_cik_from_ticker(ticker):
 def get_revenue_from_sec(cik):
     url = f"https://data.sec.gov/api/xbrl/companyconcept/CIK{cik}/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json"
     headers = {
-        "User-Agent": "Your Name (your_email@example.com)"
+        "User-Agent": "Patrick Badiang (patrick.vyn.llanto@gmail.com)"
     }
     
     response = requests.get(url, headers=headers)

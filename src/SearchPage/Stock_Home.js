@@ -5,6 +5,9 @@ import StockChart from '../Components/StockChat';
 
 import stockData from '../FakeData/CompanyOverview.json';
 import FundamentalText from '../Components/Fundamental_Text';
+import { useEffect, useState } from 'react';
+import axios from "axios";
+import RevenueChart from '../Components/RevenueChart';
 
 const Skeleton = styled('div')(({ theme, height }) => ({
     backgroundColor: theme.palette.action.hover,
@@ -26,11 +29,21 @@ const formatNumber = (number) => {
     return number; // Return as is if less than a billion (you might want to format differently)
 };
 
-export default function home(){
+export default function Stock_Home(){
+    const [revenueData, setRevenueData] = useState(null);
 
-    const handleSearch = (value) => { //Take the value and call stock data API
+    const handleSearch = async (value) => { //Take the value and call stock data API
         console.log("Search Value: ", value);
+
+        try {
+            const response = await axios.get(`http://127.0.0.1:3001/stock/revenue?ticker=${value}`); // Replace with your API URL
+            setRevenueData(response.data);
+          } catch (error) {
+            console.error("Error fetching revenue data:", error);
+          }
     }
+
+    
 
     return (
     <Grid container spacing={1} alignContent={'center'}>
@@ -98,7 +111,12 @@ export default function home(){
                 <Grid size={12} mt={2}>
                     <Skeleton height={1} />
                 </Grid>
-
+                <Grid size={12} mt={2}>
+                    <div>
+                        <h1>Stock Revenue Visualization</h1>
+                        {revenueData ? <RevenueChart revenueData={revenueData} /> : <p>Loading...</p>}
+                    </div>
+                </Grid>
             </Grid>
 
 

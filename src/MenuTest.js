@@ -13,7 +13,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import { Search, AttachMoney, AlignVerticalBottom, Feed, Phone } from '@mui/icons-material';
 
 import HomeHome from './HomePage/home';
-import SearchHome from './SearchPage/home';
+import SearchHome from './SearchPage/Stock_Home';
 import DividendsHome from './DividendsPage/home';
 import PortfolioHome from './PortfolioPage/PortfolioHome';
 import EarningsHome from './EarningsPage/home';
