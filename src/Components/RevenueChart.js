@@ -7,7 +7,7 @@ ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const RevenueChart = ({ revenueData }) => {
   // Extract only 10-K (annual revenue) data
-  const annualRevenues = revenueData.units.USD.filter(entry => entry.form === "10-K" && entry.frame);
+  const annualRevenues = revenueData.units.USD.filter((entry) => entry.form === "10-K" && entry.frame && !entry.frame.includes("Q"));
 
   // Sort by year (frame = CYYYYY)
   annualRevenues.sort((a, b) => parseInt(a.frame.slice(2)) - parseInt(b.frame.slice(2)));
