@@ -90,6 +90,19 @@ def get_cik_from_ticker(ticker):
 
     return {"error": "Ticker not found"}
 
+def get_revenue_from_sec(cik):
+    url = f"https://data.sec.gov/api/xbrl/companyconcept/CIK{cik}/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json"
+    headers = {
+        "User-Agent": "Your Name (your_email@example.com)"
+    }
+    
+    response = requests.get(url, headers=headers)
+    if response.status_code != 200:
+        return {"error": "Failed to fetch revenue data from SEC"}
+    
+    return response.json()
+
+
 @app.route("/api/news", methods=["GET"])
 def get_news():
     return jsonify(scrape_yahoo_finance())
@@ -111,6 +124,19 @@ def get_cik():
         return jsonify({"CIK": cik})
     else:
         return jsonify({"error": "CIK not found"}), 404
+    
+@app.route("/stock/revenue", methods=["GET"])
+def get_revenue():
+    ticker = request.args.get("ticker")
+    if not ticker:
+        return jsonify({"error": "Ticker symbol is required"}), 400
+    
+    cik = get_cik_from_ticker(ticker.upper())
+    if isinstance(cik, dict) and "error" in cik:
+        return jsonify(cik), 404
+    
+    revenue_data = get_revenue_from_sec(cik)
+    return jsonify(revenue_data)
 
 if __name__ == "__main__":
     app.run( port = 3001)
