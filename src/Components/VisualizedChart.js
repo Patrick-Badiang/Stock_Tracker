@@ -1,12 +1,17 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
+import { Typography } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 
 // Register Chart.js components
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
-const RevenueChart = ({ revenueData }) => {
+const VisualizedChart = ({ revenueData, title, color }) => {
   // Extract only 10-K (annual revenue) data
+  if (!revenueData || !revenueData.units || !revenueData.units.USD) {
+    return <p>No data available</p>;
+  }
   const annualRevenues = revenueData.units.USD.filter((entry) => entry.form === "10-K" && entry.frame && !entry.frame.includes("Q"));
 
   // Sort by year (frame = CYYYYY)
@@ -22,7 +27,7 @@ const RevenueChart = ({ revenueData }) => {
       {
         label: "Annual Revenue (in Billion USD)",
         data: revenueValues,
-        backgroundColor: "rgba(75, 192, 192, 0.6)", // Light teal bars
+        backgroundColor: color, // Light teal bars
         borderColor: "rgba(75, 192, 192, 1)",
         borderWidth: 1,
       },
@@ -42,7 +47,16 @@ const RevenueChart = ({ revenueData }) => {
     },
   };
 
-  return <Bar data={data} options={options} />;
+  return (
+    <>
+      <Grid size={12} mt={2}>
+        <Typography variant="h4" sx={{ textAlign: "center", marginBottom: 2 }}>
+            {title}
+        </Typography>
+        <Bar data={data} options={options} />
+        </Grid>
+    </>
+    );
 };
 
-export default RevenueChart;
+export default VisualizedChart;

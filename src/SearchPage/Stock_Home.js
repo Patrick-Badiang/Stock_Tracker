@@ -7,7 +7,7 @@ import stockData from '../FakeData/CompanyOverview.json';
 import FundamentalText from '../Components/Fundamental_Text';
 import { useEffect, useState } from 'react';
 import axios from "axios";
-import RevenueChart from '../Components/RevenueChart';
+import VisualizedChart from '../Components/VisualizedChart';
 
 const Skeleton = styled('div')(({ theme, height }) => ({
     backgroundColor: theme.palette.action.hover,
@@ -103,20 +103,47 @@ export default function Stock_Home(){
             </Grid>
 
             {/* Fundamental Data*/}
-            <Grid size={12} mt={4}>
+            <Grid container size={12} mt={4}>
                 <Grid size={12}>
                     <Typography variant={'h5'} align='start' mt={4}>
                         Fundamental Data</Typography>
-                </Grid>
-                <Grid size={12} mt={2}>
+                        <Grid size={12} mt={2}>
                     <Skeleton height={1} />
                 </Grid>
-                <Grid size={12} mt={2}>
-                    <div>
-                        <h1>Stock Revenue Visualization</h1>
-                        {revenueData ? <RevenueChart revenueData={revenueData} /> : <p>Loading...</p>}
-                    </div>
                 </Grid>
+                
+                <Grid container size={4}>
+                    {revenueData ? <VisualizedChart 
+                            revenueData={revenueData} 
+                            title='Revene' 
+                            color = "rgba(75, 192, 192, 0.6)"/> : <p>Loading...</p>}
+                </Grid>
+                <Grid container size={4}>
+                    {revenueData ? <VisualizedChart 
+                            revenueData={revenueData} 
+                            title='EPS'   
+                            color = "rgba(186, 175, 57, 0.6)"/> : <p>Loading...</p>}
+                </Grid>
+                <Grid container size={4}>
+                    {revenueData ? <VisualizedChart 
+                            revenueData={revenueData} 
+                            title='Shares Outstanding'    
+                            color = "rgba(56, 41, 193, 0.6)"/> : <p>Loading...</p>}
+                </Grid>
+                <Grid container size={4}>
+                    {revenueData ? <VisualizedChart 
+                            revenueData={revenueData} 
+                            title='Operating Margin'      
+                            color = "rgba(213, 235, 68, 0.6)"/> : <p>Loading...</p>}
+                </Grid>
+                <Grid container size={4}>
+                    {revenueData ? <VisualizedChart r
+                            evenueData={revenueData} 
+                            title='Expenses'
+                            color = "rgba(195, 125, 67, 0.6)"/> : <p>Loading...</p>}
+                </Grid>
+
+                
             </Grid>
 
 
