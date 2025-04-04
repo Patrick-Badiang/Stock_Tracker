@@ -1,4 +1,4 @@
-import { Box, styled, Typography } from '@mui/material';
+import { Box, Container, styled, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import SearchBar from '../Components/SearchBar';
 import StockChart from '../Components/StockChat';
@@ -19,6 +19,7 @@ const Skeleton = styled('div')(({ theme, height }) => ({
     borderWidth: '1px',
     height,
     content: '" "',
+    width: '100%',
   }));
 
 // Function to format large numbers (Billions or Trillions)
@@ -136,11 +137,54 @@ export default function Stock_Home(){
     
     if (!stockSymbol || !stockName) {
         return (
-            <Grid container spacing={1} alignContent={'center'}>
-                <Grid size={5} />
+            <Grid container spacing={10} alignContent={'center'} direction={'column'} justifyContent={'space-evenly'}>
+                {/* <Grid size={5} /> */}
                 <Grid size={12}>
                     <SearchBar onSearch={handleSearch}/>
                 </Grid>
+                <Grid size={12}>
+                    <Box height={40} />
+                </Grid>
+                {/* Popular Indices*/}
+                <Grid container direction ={'row'} size={12} spacing={1} mt={4}>
+                    <Grid size={12}>
+                        <Typography variant={'h5'} align='start'>
+                            Popular Indices</Typography>
+                    </Grid>
+                    <Grid size={4}>
+                        <Skeleton height={100} />
+                    </Grid>
+                    <Grid size={4}>
+                        <Skeleton height={100} />
+                    </Grid>
+                    <Grid size={4}>
+                        <Skeleton height={100} />
+                    </Grid>
+                    
+                </Grid>
+
+                {/*ETFs */}
+                
+                <Grid container direction ={'row'} size={12} spacing={1} mt={4}>
+                    <Grid size={12}>
+                        <Typography variant={'h5'} align='start'>
+                            Popular ETFs</Typography>
+                    </Grid>
+                    <Grid size={3}>
+                        <Skeleton height={100} />
+                    </Grid>
+                    <Grid size={3}>
+                        <Skeleton height={100} />
+                    </Grid>
+                    <Grid size={3}>
+                        <Skeleton height={100} />
+                    </Grid>
+                    <Grid size={3}>
+                        <Skeleton height={100} />
+                    </Grid>
+                </Grid>
+                
+                
             </Grid>
         );
     }

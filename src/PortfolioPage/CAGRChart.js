@@ -24,13 +24,14 @@ const CAGRChart = ({ dataPoints }) => {
     maintainAspectRatio: false,
     scales: {
       y: {
-        beginAtZero: false,
+        beginAtZero: true,
         ticks: {
           callback: function (value) {
             return value + "%";
           },
         },
       },
+      
     },
   };
 

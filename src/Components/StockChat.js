@@ -76,7 +76,7 @@ const StockChart = () => {
           </button>
         ))}
       </div>
-      <Line data={chartData} options={{ responsive: true, maintainAspectRatio: false }} />
+      <Line data={chartData} options={{ responsive: true, maintainAspectRatio: false,  scales: { y: { beginAtZero: true } } }} />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, MenuItem, Select } from "@mui/material";
+import { Box, Button, Dialog, FormControl, MenuItem, Select } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { useState } from "react";
 import data from "../FakeData/AvailablePortfolios.json"; 
@@ -9,6 +9,7 @@ const portfolios = data.portfolios;
 export default function ChangePortfolioButton() {
     const { selectedPortfolio, setSelectedPortfolio } = usePortfolio();
     const [localSelection, setLocalSelection] = useState("");
+    const [open, setOpen] = useState(false);
     const { portfolioData } = usePortfolio(); // Access global portfolio data
     
 
@@ -19,6 +20,10 @@ export default function ChangePortfolioButton() {
         setLocalSelection(selectedName);
         setSelectedPortfolio(portfolio || null);
     };
+
+    const addPosition = () => {
+        setOpen(true);
+    }
 
     return (
         <Grid container size={12}>
@@ -41,7 +46,14 @@ export default function ChangePortfolioButton() {
             </Grid>
             <Grid size={3} alignContent={'flex-end'}>
 
-                <Button variant="contained" color="transparent" sx = {{height: 40, width: '90%'}}>Add a Position</Button>
+                <Button 
+                    variant="contained" 
+                    color="transparent" 
+                    onClick={() => {
+                        addPosition();
+                    }}
+                    sx = {{height: 40, width: '90%'}}>
+                        Add a Position</Button>
             </Grid>
             <Grid size={3} alignContent={'flex-end'}>
                 <Button variant="contained" color="transparent" sx = {{height: 40, width: '90%'}}>Edit Watchlist</Button>
@@ -49,6 +61,9 @@ export default function ChangePortfolioButton() {
             <Grid size={12}>
                       <Box height={10} />
             </Grid>
+            <Dialog open={open}>
+                Hello
+            </Dialog>
         </Grid>
     )
 }
