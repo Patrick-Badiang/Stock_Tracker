@@ -134,7 +134,7 @@ export default function Stock_Home(){
             }));
     
         const labels = sharesOutstandingValue.map(entry => entry.fy.toString());
-        const shares = sharesOutstandingValue.map(entry => entry.shares);
+        const shares = sharesOutstandingValue.map(entry => entry.shares / 1e9); // Convert to billions
     
         return { labels, shares };
     };
@@ -336,7 +336,7 @@ export default function Stock_Home(){
                 </Grid>
                 <Grid container size={4}>
                     {sharesOutstandingData ? <VisualizedChart 
-                            unitLabel = "Shares (Millions)"
+                            unitLabel = "Shares (Billions)"
                             labels={sharesOutstandingData.labels}
                             annualRevenues={sharesOutstandingData.shares} 
                             quarterlyRevenues={epsData.quarterlyEPS}
