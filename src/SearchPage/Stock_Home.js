@@ -1,4 +1,4 @@
-import { Box, Container, styled, Typography } from '@mui/material';
+import { Box, Button, Container, styled, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import SearchBar from '../Components/SearchBar';
 import StockChart from '../Components/StockChat';
@@ -35,8 +35,12 @@ const formatNumber = (number) => {
 export default function Stock_Home(){
     const [revenueData, setRevenueData] = useState(null);
     const [epsData, setEPSData] = useState(null);
+    const [sharesOutstandingData, setSharesOutstandingData] = useState(null);
+
     const [stockSymbol, setStockSymbol] = useState(null);
     const [stockName, setStockName] = useState(null);
+
+
     const parseRevenueData = (data) => {
         if (!data || !data.units || !data.units.USD) return null;
     
@@ -95,6 +99,46 @@ export default function Stock_Home(){
         return { labels, annualEPS, quarterlyEPS };
     };
     
+    const parseSharesOutstandingData = (data) => {
+        if (!data || !data.units || !data.units["shares"]) return null;
+    
+        const sharesOutstandingEntries = data.units["shares"];
+    
+        // Filter for annual data (10-K & FY)
+        const filtered = sharesOutstandingEntries.filter(entry => entry.form === "10-K" && entry.fp === "FY");
+    
+        // Group by true calendar year extracted from `frame` or fallback to `fy`
+        const grouped = filtered.reduce((acc, curr) => {
+            let year;
+    
+            if (curr.frame && /^CY\d{4}$/.test(curr.frame)) {
+                year = parseInt(curr.frame.slice(2)); // Extract year from CYxxxx
+            } else {
+                year = curr.fy; // fallback
+            }
+    
+            // Keep latest filed entry per year
+            if (!acc[year] || new Date(curr.filed) > new Date(acc[year].filed)) {
+                acc[year] = { ...curr, trueYear: year };
+            }
+    
+            return acc;
+        }, {});
+    
+        // Convert to array and sort by year
+        const sharesOutstandingValue = Object.values(grouped)
+            .sort((a, b) => a.trueYear - b.trueYear)
+            .map(entry => ({
+                fy: entry.trueYear,
+                shares: entry.val
+            }));
+    
+        const labels = sharesOutstandingValue.map(entry => entry.fy.toString());
+        const shares = sharesOutstandingValue.map(entry => entry.shares);
+    
+        return { labels, shares };
+    };
+    
 
     const handleSearch = async (value) => {
         // console.log("Search Value: ", value);
@@ -113,22 +157,32 @@ export default function Stock_Home(){
         setStockName(stock.Name);
         
         try {
-            const response = await axios.get(`http://127.0.0.1:3001/stock/revenue?ticker=${value}`);
-            const epsResponse = await axios.get(`http://127.0.0.1:3001/stock/eps?ticker=${value}`);
-    
+            const cik = await axios.get(`http://127.0.0.1:3001/stock/cik?ticker=${value}`);
+            // console.log("CIK Data:", cik.data.CIK);
+            const response = await axios.get(`http://127.0.0.1:3001/stock/revenue?cik=${cik.data.CIK}`);
+            const epsResponse = await axios.get(`http://127.0.0.1:3001/stock/eps?cik=${cik.data.CIK}`);
+            const sharesOutstandingResponse = await axios.get(`http://127.0.0.1:3001/stock/sharesOutstanding?cik=${cik.data.CIK}`);
+
+            console.log("Shares Outstanding Data:", sharesOutstandingResponse.data);
             // Parse Revenue Data
             const parsedRevenueData = parseRevenueData(response.data);
             
             // Parse EPS Data
             const parsedEPSData = parseEPSData(epsResponse.data);
+
+            // Parse Shares Outstanding Data
+            const parsedSharesOutstandingData = parseSharesOutstandingData(sharesOutstandingResponse.data);
     
             // Set State
             // console.log("Parsed Revenue Data:", parsedRevenueData);
             setRevenueData(parsedRevenueData);
             setEPSData(parsedEPSData);
+            setSharesOutstandingData(parsedSharesOutstandingData);
+
+            
             
     
-            console.log("EPS Data:", parsedEPSData);
+            // console.log("EPS Data:", parsedEPSData);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -201,9 +255,13 @@ export default function Stock_Home(){
                 <Box height={40} />
             </Grid>
             <Grid size={4} offset={{ md: 3.7 }}>
+                <Button variant="contained" color="transparent" sx = {{height: 40, width: '50%%', mr: '5px'}}>Add to Portfolio</Button>
+                <Button variant="contained" color="transparent" sx = {{height: 40, width: '50%%', ml: '5px'}}>Add to Watchlist</Button>
+            </Grid>
+            <Grid size={4} offset={{ md: 3.7 }}>
                 {/* <Skeleton height={100} /> */}
                 <Box height={100} sx = {{textAlign: 'center'}}>
-                    <Typography variant={'h4'}>{stockSymbol}</Typography>
+                    <Typography variant={'h4'} sx= {{mt: '5px'}}>{stockSymbol}</Typography>
                     <Typography variant={'body1'}>({stockName})</Typography>
                     <Typography variant={'h4'}>$236.00</Typography>
                     <Typography variant={'body1'}>0.00%</Typography>
@@ -276,12 +334,16 @@ export default function Stock_Home(){
                             title='EPS'   
                             color = "rgba(186, 175, 57, 0.6)"/> : <p>Loading...</p>}
                 </Grid>
-                {/* <Grid container size={4}>
-                    {revenueData ? <VisualizedChart 
-                            annualRevenues={revenueData.annualRevenues} 
-                            title='Shares Outstanding'    
+                <Grid container size={4}>
+                    {sharesOutstandingData ? <VisualizedChart 
+                            unitLabel = "Shares (Millions)"
+                            labels={sharesOutstandingData.labels}
+                            annualRevenues={sharesOutstandingData.shares} 
+                            quarterlyRevenues={epsData.quarterlyEPS}
+                            title='Shares Outstanding'     
                             color = "rgba(56, 41, 193, 0.6)"/> : <p>Loading...</p>}
                 </Grid>
+                {/*}
                 <Grid container size={4}>
                     {revenueData ? <VisualizedChart 
                             annualRevenues={revenueData} 

@@ -114,6 +114,19 @@ def get_eps_from_sec(cik):
     
     return response.json()
 
+def get_sharesOutstanding_from_sec(cik):
+    # This function is not used in the current implementation
+    url = f"https://data.sec.gov/api/xbrl/companyconcept/CIK{cik}/us-gaap/WeightedAverageNumberOfDilutedSharesOutstanding.json"
+    headers = {
+        "User-Agent": "Patrick Badiang (patrick.vyn.llanto@gmail.com)"
+    }
+
+    response = requests.get(url, headers=headers)
+    if response.status_code != 200:
+        return {"error": "Failed to fetch revenue data from SEC"}
+    
+    return response.json()
+
 
 @app.route("/api/news", methods=["GET"])
 def get_news():
@@ -139,11 +152,10 @@ def get_cik():
     
 @app.route("/stock/revenue", methods=["GET"])
 def get_revenue():
-    ticker = request.args.get("ticker")
-    if not ticker:
-        return jsonify({"error": "Ticker symbol is required"}), 400
+    cik = request.args.get("cik")
+    if not cik:
+        return jsonify({"error": "cik symbol is required"}), 400
     
-    cik = get_cik_from_ticker(ticker.upper())
     if isinstance(cik, dict) and "error" in cik:
         return jsonify(cik), 404
     
@@ -152,16 +164,27 @@ def get_revenue():
 
 @app.route("/stock/eps", methods=["GET"])
 def get_eps():
-    ticker = request.args.get("ticker")
-    if not ticker:
-        return jsonify({"error": "Ticker symbol is required"}), 400
+    cik = request.args.get("cik")
+    if not cik:
+        return jsonify({"error": "cik symbol is required"}), 400
     
-    cik = get_cik_from_ticker(ticker.upper())
     if isinstance(cik, dict) and "error" in cik:
         return jsonify(cik), 404
     
     eps_data = get_eps_from_sec(cik)
     return jsonify(eps_data)
+
+@app.route("/stock/sharesOutstanding", methods=["GET"])
+def get_sharesOutstanding():
+    cik = request.args.get("cik")
+    if not cik:
+        return jsonify({"error": "cik symbol is required"}), 400
+    
+    if isinstance(cik, dict) and "error" in cik:
+        return jsonify(cik), 404
+    
+    sharesOutstanding_data = get_sharesOutstanding_from_sec(cik)
+    return jsonify(sharesOutstanding_data)
 
 if __name__ == "__main__":
     app.run( port = 3001)
