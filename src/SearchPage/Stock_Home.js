@@ -11,6 +11,8 @@ import VisualizedChart from '../Components/VisualizedChart';
 
 import stockList from '../Database/stock_list.json';
 
+import {getCikFromTicker} from '../Database/API_calls.js';
+
 const Skeleton = styled('div')(({ theme, height }) => ({
     backgroundColor: theme.palette.action.hover,
     borderRadius: theme.shape.borderRadius,
@@ -39,6 +41,39 @@ export default function Stock_Home(){
 
     const [stockSymbol, setStockSymbol] = useState(null);
     const [stockName, setStockName] = useState(null);
+
+    const handleAddToPortfolio = () => {
+        console.log("Add to Portfolio clicked");
+        // Add your logic to add the stock to the portfolio
+        /*
+        {
+            "symbol": "AMZN",
+            "sector": "Technology",
+            "quantity": 25,
+            "bought_price": 200,
+            "current_price": 250,
+            "week_high": 300,
+            "week_low": 150,
+            "latest_five_week_close": [240, 245, 250, 255, 280]
+        },
+        */
+    };
+    const handleAddToWatchlist = () => {
+        console.log("Add to Watchlist clicked");
+        // Add your logic to add the stock to the watchlist
+        /*
+        {
+            "symbol": "AMZN",
+            "sector": "Technology",
+            "quantity": 25,
+            "bought_price": 200,
+            "current_price": 250,
+            "week_high": 300,
+            "week_low": 150,
+            "latest_five_week_close": [240, 245, 250, 255, 280]
+        },
+        */
+    };
 
 
     const parseRevenueData = (data) => {
@@ -157,7 +192,9 @@ export default function Stock_Home(){
         setStockName(stock.Name);
         
         try {
-            const cik = await axios.get(`http://127.0.0.1:3001/stock/cik?ticker=${value}`);
+            // const cik = await axios.get(`http://127.0.0.1:3001/stock/cik?ticker=${value}`);
+            const cik = getCikFromTicker(value);
+            console.log("CIK:", cik);
             // console.log("CIK Data:", cik.data.CIK);
             const response = await axios.get(`http://127.0.0.1:3001/stock/revenue?cik=${cik.data.CIK}`);
             const epsResponse = await axios.get(`http://127.0.0.1:3001/stock/eps?cik=${cik.data.CIK}`);
@@ -255,8 +292,22 @@ export default function Stock_Home(){
                 <Box height={40} />
             </Grid>
             <Grid size={4} offset={{ md: 3.7 }}>
-                <Button variant="contained" color="transparent" sx = {{height: 40, width: '50%%', mr: '5px'}}>Add to Portfolio</Button>
-                <Button variant="contained" color="transparent" sx = {{height: 40, width: '50%%', ml: '5px'}}>Add to Watchlist</Button>
+                <Button 
+                    variant="contained" 
+                    color="transparent" 
+                    sx = {{height: 40, width: '50%%', mr: '5px'}}
+                    onClick={() => handleAddToPortfolio()}
+                    >
+                        Add to Portfolio
+                    </Button>
+                <Button 
+                    variant="contained" 
+                    color="transparent" 
+                    sx = {{height: 40, width: '50%%', ml: '5px'}}
+                    onAbort={() => handleAddToWatchlist()}
+                    >
+                        Add to Watchlist
+                    </Button>
             </Grid>
             <Grid size={4} offset={{ md: 3.7 }}>
                 {/* <Skeleton height={100} /> */}
@@ -318,20 +369,20 @@ export default function Stock_Home(){
                 
                 <Grid container size={4}>
                     {revenueData ? <VisualizedChart 
+                            title = "Revenue"
                             unitLabel = "Revenue (Billion USD)"
                             labels={revenueData.labels}
                             annualRevenues={revenueData.annualRevenues} 
-                            quarterlyRevenues={revenueData.quarterlyRevenues}
-                            title='Revene' 
+                            quarterlyRevenues={revenueData.quarterlyRevenues} 
                             color = "rgba(75, 192, 192, 0.6)"/> : <p>Loading...</p>}
                 </Grid>
                 <Grid container size={4}>
                     {epsData ? <VisualizedChart 
+                            title = "EPS"
                             unitLabel = "EPS (USD)"
                             labels={epsData.labels}
                             annualRevenues={epsData.annualEPS} 
-                            quarterlyRevenues={epsData.quarterlyEPS}
-                            title='EPS'   
+                            // quarterlyRevenues={epsData.quarterlyEPS} 
                             color = "rgba(186, 175, 57, 0.6)"/> : <p>Loading...</p>}
                 </Grid>
                 <Grid container size={4}>
@@ -339,8 +390,20 @@ export default function Stock_Home(){
                             unitLabel = "Shares (Billions)"
                             labels={sharesOutstandingData.labels}
                             annualRevenues={sharesOutstandingData.shares} 
-                            quarterlyRevenues={epsData.quarterlyEPS}
+                            // quarterlyRevenues={epsData.quarterlyEPS}
                             title='Shares Outstanding'     
+                            color = "rgba(56, 41, 193, 0.6)"/> : <p>Loading...</p>}
+                </Grid>
+                <Grid container size={12}>
+                        <Box height={20} />
+                </Grid>
+                <Grid container size={4}>
+                    {sharesOutstandingData ? <VisualizedChart 
+                            unitLabel = "Shares (Billions)"
+                            labels={sharesOutstandingData.labels}
+                            annualRevenues={sharesOutstandingData.shares} 
+                            // quarterlyRevenues={epsData.quarterlyEPS}
+                            title='Operating Margins'     
                             color = "rgba(56, 41, 193, 0.6)"/> : <p>Loading...</p>}
                 </Grid>
                 {/*}

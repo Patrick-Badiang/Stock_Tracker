@@ -1,13 +1,13 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
-import { Typography } from "@mui/material";
+import { Divider, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 
 // Register Chart.js components
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
-const VisualizedChart = ({ labels, annualRevenues, quarterlyRevenues, unitLabel, color }) => {
+const VisualizedChart = ({ title, labels, annualRevenues, quarterlyRevenues, unitLabel, color }) => {
     if (!annualRevenues && !quarterlyRevenues) {
         return <p>No revenue data available</p>;
     }
@@ -41,7 +41,15 @@ const VisualizedChart = ({ labels, annualRevenues, quarterlyRevenues, unitLabel,
         ],
     };
 
-    return <Bar data={data} options={{ responsive: true, scales: { y: { beginAtZero: true } } }} />;
+    return (
+    <>
+
+    <Typography variant="h4">
+        {title}
+    </Typography>
+    <Bar data={data} options={{ responsive: true, scales: { y: { beginAtZero: true } } }} />
+    </>
+);
 };
 
 export default VisualizedChart;

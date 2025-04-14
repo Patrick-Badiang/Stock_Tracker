@@ -5,7 +5,6 @@ import json
 import os
 from flask_cors import CORS
 
-
 app = Flask(__name__)
 CORS(app)  # Allows requests from any origin
 
@@ -71,25 +70,6 @@ def scrape_stock_news(ticker):
 
     return json.dumps(news_list, indent=2)
 
-def get_cik_from_ticker(ticker):
-    url = "https://www.sec.gov/files/company_tickers.json"
-    headers = {
-        "User-Agent": "Your Name (your_email@example.com)"
-    }
-    
-    response = requests.get(url, headers=headers)
-    if response.status_code != 200:
-        return {"error": "Failed to fetch company tickers"}
-    
-    data = response.json()
-    
-    for company in data.values():
-        if company["ticker"].lower() == ticker.lower():
-            cik = str(company["cik_str"]).zfill(10)  # Convert to 10-digit CIK
-            return cik
-
-    return {"error": "Ticker not found"}
-
 def get_revenue_from_sec(cik):
     url = f"https://data.sec.gov/api/xbrl/companyconcept/CIK{cik}/us-gaap/RevenueFromContractWithCustomerExcludingAssessedTax.json"
     headers = {
@@ -138,17 +118,6 @@ def get_stock_news():
     if not ticker:
         return jsonify({"error": "Ticker symbol is required"}), 400
     return jsonify(scrape_stock_news(ticker.upper()))
-
-@app.route("/stock/cik", methods=["GET"])
-def get_cik():
-    ticker = request.args.get("ticker")
-    if not ticker:
-        return jsonify({"error": "Ticker symbol is required"}), 400
-    cik = get_cik_from_ticker(ticker.upper())
-    if cik:
-        return jsonify({"CIK": cik})
-    else:
-        return jsonify({"error": "CIK not found"}), 404
     
 @app.route("/stock/revenue", methods=["GET"])
 def get_revenue():
