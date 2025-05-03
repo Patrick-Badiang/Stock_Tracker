@@ -196,9 +196,9 @@ export default function Stock_Home(){
             const cik = getCikFromTicker(value);
             console.log("CIK:", cik);
             // console.log("CIK Data:", cik.data.CIK);
-            const response = await axios.get(`http://127.0.0.1:3001/stock/revenue?cik=${cik.data.CIK}`);
-            const epsResponse = await axios.get(`http://127.0.0.1:3001/stock/eps?cik=${cik.data.CIK}`);
-            const sharesOutstandingResponse = await axios.get(`http://127.0.0.1:3001/stock/sharesOutstanding?cik=${cik.data.CIK}`);
+            const response = await axios.get(`http://127.0.0.1:3001/stock/revenue?cik=${cik}`);
+            const epsResponse = await axios.get(`http://127.0.0.1:3001/stock/eps?cik=${cik}`);
+            const sharesOutstandingResponse = await axios.get(`http://127.0.0.1:3001/stock/sharesOutstanding?cik=${cik}`);
 
             console.log("Shares Outstanding Data:", sharesOutstandingResponse.data);
             // Parse Revenue Data

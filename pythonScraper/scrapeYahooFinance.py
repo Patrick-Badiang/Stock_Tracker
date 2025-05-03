@@ -107,6 +107,19 @@ def get_sharesOutstanding_from_sec(cik):
     
     return response.json()
 
+'''
+
+const fetchSECData = async (cik) => {
+  const response = await fetch(`https://data.sec.gov/api/xbrl/companyconcept/CIK${cik}/us-gaap/WeightedAverageNumberOfDilutedSharesOutstanding.json`, {
+    headers: { 'User-Agent': 'Patrick Badiang (patrick.vyn.llanto@gmail.com)' }
+  });
+
+  if (!response.ok) throw new Error(`SEC fetch failed for CIK ${cik}`);
+
+  return await response.json();
+};
+'''
+
 
 @app.route("/api/news", methods=["GET"])
 def get_news():
